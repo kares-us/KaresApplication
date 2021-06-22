@@ -43,7 +43,7 @@ export default function Visitor(props) {
     }
 
     return (
-        isAuth ? renderPage() : <NotAuthed />
+        renderPage()
     )
 }
 

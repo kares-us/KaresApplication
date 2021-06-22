@@ -41,7 +41,7 @@ export default function Admin(props) {
     }
 
     return (
-        isAuth ? renderPage() : <NotAuthed />
+        renderPage()
     )
 }
 

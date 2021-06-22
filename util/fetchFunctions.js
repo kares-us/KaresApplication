@@ -1,5 +1,7 @@
+let apiURL = 'https://kares-api.herokuapp.com'
+
 export async function fetchCountyVisitors(countyId) {
-    let url = `http://localhost:3001/county/get_visitors/${countyId}`
+    let url = `${apiURL}/county/get_visitors/${countyId}`
     const options = {
         method: 'GET',
         headers: {
@@ -15,7 +17,7 @@ export async function fetchCountyVisitors(countyId) {
 }
 
 export async function fetchCountyResources(countyId) {
-    let url = `http://localhost:3001/county/get_resources/${countyId}`
+    let url = `${apiURL}/county/get_resources/${countyId}`
     const options = {
         method: 'GET',
         headers: {
@@ -31,7 +33,7 @@ export async function fetchCountyResources(countyId) {
 }
 
 export async function fetchAdminCounty(session) {
-    const url = `http://localhost:3001/county/get_admin_county/${session.user.email}`
+    const url = `${apiURL}/county/get_admin_county/${session.user.email}`
     const options = {
         method: 'GET',
         headers: {
@@ -47,7 +49,7 @@ export async function fetchAdminCounty(session) {
 }
 
 export async function fetchAllCounties() {
-    const url = `http://localhost:3001/county/get_all`
+    const url = `${apiURL}/county/get_all`
     const options = {
         method: 'GET',
         headers: {
@@ -63,7 +65,7 @@ export async function fetchAllCounties() {
 }
 
 export async function markVisitorFulfilled(id) {
-    const url = `http://localhost:3001/visitor/mark_fulfilled/${id}`
+    const url = `${apiURL}/visitor/mark_fulfilled/${id}`
     const options = {
         method: 'POST',
         headers: {
@@ -79,7 +81,7 @@ export async function markVisitorFulfilled(id) {
 }
 
 export async function markVisitorArchived(id) {
-    const url = `http://localhost:3001/visitor/archive_visitor/${id}`
+    const url = `${apiURL}/visitor/archive_visitor/${id}`
     const options = {
         method: 'POST',
         headers: {
@@ -95,7 +97,7 @@ export async function markVisitorArchived(id) {
 }
 
 export async function updateResourceInformation(id, newData) {
-    const url = `http://localhost:3001/resource/update/${id}`
+    const url = `${apiURL}/resource/update/${id}`
     const options = {
         method: 'PATCH',
         headers: {
@@ -112,7 +114,7 @@ export async function updateResourceInformation(id, newData) {
 }
 
 export async function createResource(data) {
-    const url = `http://localhost:3001/resource/create`
+    const url = `${apiURL}/resource/create`
     const options = {
         method: 'POST',
         headers: {
@@ -129,13 +131,13 @@ export async function createResource(data) {
 }
 
 export async function deleteResource(id) {
-    const url = `http://localhost:3001/resource/delete/${id}`
+    const url = `${apiURL}/resource/delete/${id}`
     const options = {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
+        }
     }
 
     const res = await fetch(url, options)
@@ -145,7 +147,7 @@ export async function deleteResource(id) {
 }
 
 export async function createCounty(data) {
-    const url = `http://localhost:3001/county/create`
+    const url = `${apiURL}/county/create`
     const options = {
         method: 'POST',
         headers: {
@@ -162,7 +164,7 @@ export async function createCounty(data) {
 }
 
 export async function editCounty(data) {
-    const url = `http://localhost:3001/county/update/${data.id}`
+    const url = `${apiURL}/county/update/${data.id}`
     const options = {
         method: 'PATCH',
         headers: {
@@ -179,7 +181,7 @@ export async function editCounty(data) {
 }
 
 export async function fetchAllAdmins() {
-    const url = `http://localhost:3001/admin/get_all`
+    const url = `${apiURL}/admin/get_all`
     const options = {
         method: 'GET',
         headers: {
@@ -195,7 +197,7 @@ export async function fetchAllAdmins() {
 }
 
 export async function updateAdmin(data) {
-    const url = `http://localhost:3001/admin/update/${data.email}`
+    const url = `${apiURL}/admin/update/${data.email}`
     const options = {
         method: 'PATCH',
         headers: {
@@ -212,7 +214,7 @@ export async function updateAdmin(data) {
 }
 
 export async function submitSimpleForm(data) {
-    const url = `http://localhost:3001/visitor/submit_simple_form`
+    const url = `${apiURL}/visitor/submit_simple_form`
     const options = {
         method: 'POST',
         headers: {
@@ -229,7 +231,7 @@ export async function submitSimpleForm(data) {
 }
 
 export async function submitAdvancedForm(data) {
-    const url = `http://localhost:3001/visitor/submit_advanced_form`
+    const url = `${apiURL}/visitor/submit_advanced_form`
     const options = {
         method: 'POST',
         headers: {
@@ -246,7 +248,7 @@ export async function submitAdvancedForm(data) {
 }
 
 export async function fetchAllResources(id) {
-    const url = `http://localhost:3001/resource/get_county_resources/${id}`
+    const url = `${apiURL}/resource/get_county_resources/${id}`
     const options = {
         method: 'GET',
         headers: {

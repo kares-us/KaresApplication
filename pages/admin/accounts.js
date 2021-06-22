@@ -65,7 +65,7 @@ export default function Resources(props) {
     }
 
     return (
-        isAdmin ? renderPage() : <NotAuthed />
+        renderPage()
     )
 }
 

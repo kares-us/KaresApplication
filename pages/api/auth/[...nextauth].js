@@ -14,13 +14,12 @@ export default NextAuth({
     },
     callbacks: {
         async signIn(user, account, profile) {
-            const url = 'http://localhost:3001/admin/create_account'
+            const url = `https://kares-api.herokuapp.com/admin/create_account`
             const options = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'kares-access': 'true'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(profile)
             }
@@ -40,13 +39,12 @@ export default NextAuth({
             return session
         },
         async jwt(token, user, account, profile, isNewUser) {
-            const url = `http://localhost:3001/admin/get_admin/${token.email}`
+            const url = `https://kares-api.herokuapp.com/admin/get_admin/${token.email}`
             const options = {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'kares-access': 'true'
+                    'Content-Type': 'application/json'
                 }
             }
 

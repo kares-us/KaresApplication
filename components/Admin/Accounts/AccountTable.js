@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Edit from '../../Icons/Edit'
+import { SyncLoader } from 'react-spinners'
 
 import AccountView from './AccountView'
 
@@ -32,16 +33,27 @@ export default function AccountTable(props) {
         )
     }
 
-    return (
-        <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
-            <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
-                <p className='w-full'>Email</p>
-                <p className='w-full text-right hidden sm:block'>Name</p>
-                <p className='w-full text-right'>Manage</p>
+    function renderLoading() {
+        return (
+            <div className='h-screen flex justify-center items-center'>
+                <SyncLoader color={'#374151'} />
             </div>
-            {accounts ? renderTable(accounts) : null}
-            {accountViewForm ? <AccountView data={accountFormInfo} handleForm={handleAccountForm} editAccount={editAccount} counties={counties} /> : null}
-        </div >
+        )
+    }
+
+    return (
+        accounts && counties ?
+            <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
+                <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
+                    <p className='w-full'>Email</p>
+                    <p className='w-full text-right hidden sm:block'>Name</p>
+                    <p className='w-full text-right'>Manage</p>
+                </div>
+                {accounts ? renderTable(accounts) : null}
+                {accountViewForm ? <AccountView data={accountFormInfo} handleForm={handleAccountForm} editAccount={editAccount} counties={counties} /> : null}
+            </div >
+            :
+            renderLoading()
     );
 }
 

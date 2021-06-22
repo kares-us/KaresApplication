@@ -52,7 +52,7 @@ export default function counties(props) {
     }
 
     return (
-        isAdmin ? renderPage() : <NotAuthed />
+        renderPage()
     )
 }
 

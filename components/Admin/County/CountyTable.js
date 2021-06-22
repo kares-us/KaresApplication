@@ -5,6 +5,7 @@ import AddCounty from './AddCounty'
 import CountyView from './CountyView'
 
 import Edit from '../../Icons/Edit'
+import { SyncLoader } from 'react-spinners'
 
 export default function CountyTable(props) {
     const { counties, addCounty, editCounty } = props
@@ -35,19 +36,29 @@ export default function CountyTable(props) {
         )
     }
 
-    return (
-        <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
-            <button onClick={() => setCountyAddForm(!countyAddForm)} className='mb-5 p-1 px-4 h-12 rounded-md bg-gray-100 hover:bg-gray-300 transition-all'>Add</button>
-            <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
-                <p className='w-full'>Name</p>
-                <p className='w-full text-right'>Resources</p>
-                <p className='w-full text-right'>Manage</p>
+    function renderLoading() {
+        return (
+            <div className='h-screen flex justify-center items-center'>
+                <SyncLoader color={'#374151'} />
             </div>
-            {counties ? renderTable(counties) : null}
-            {countyAddForm ? <AddCounty handleForm={setCountyAddForm} createCounty={addCounty} /> : null}
-            {countyViewForm ? <CountyView data={countyFormInfo} handleForm={handleCountyForm} editCounty={editCounty} /> : null}
+        )
+    }
 
-        </div >
+    return (
+        counties ?
+            <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
+                <button onClick={() => setCountyAddForm(!countyAddForm)} className='mb-5 p-1 px-4 h-12 rounded-md bg-gray-100 hover:bg-gray-300 transition-all'>Add</button>
+                <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
+                    <p className='w-full'>Name</p>
+                    <p className='w-full text-right'>Resources</p>
+                    <p className='w-full text-right'>Manage</p>
+                </div>
+                {renderTable(counties)}
+                {countyAddForm ? <AddCounty handleForm={setCountyAddForm} createCounty={addCounty} /> : null}
+                {countyViewForm ? <CountyView data={countyFormInfo} handleForm={handleCountyForm} editCounty={editCounty} /> : null}
+            </div >
+            :
+            renderLoading()
     );
 }
 
