@@ -9,7 +9,7 @@ export default NextAuth({
         })
     ],
     pages: {
-        signIn: '/admin/signin',
+        signIn: 'https://kares.us/admin/signin',
         newUser: null // If set, new users will be directed here on first sign in
     },
     callbacks: {
@@ -31,7 +31,7 @@ export default NextAuth({
         },
         async redirect(url, baseUrl) {
             if (url) return url
-            else return baseUrl
+            else return 'https://kares.us/'
         },
         async session(session, token) {
             session.user.counties = token.counties
