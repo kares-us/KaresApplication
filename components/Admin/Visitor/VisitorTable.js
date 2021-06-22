@@ -127,7 +127,7 @@ export default function VisitorTable(props) {
             <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
                 <div className='flex items-center justify-between mb-4 px-3'>
                     <p className='text-xl'>{county.name} County</p>
-                    <CSVLink className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all' filename={`${county.name}_visitors`} data={createCSV(visitors)}>Download CSV</CSVLink>
+                    <CSVLink className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all' filename={`${county.name}_visitors.csv`} data={createCSV(visitors)}>Download CSV</CSVLink>
                     <div className='flex items-center w-32'>
                         <CountyDropdown selected={county.name} counties={counties} setCounty={setCounty} />
                     </div>
