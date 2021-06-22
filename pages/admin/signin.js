@@ -9,13 +9,13 @@ export default function AdminSignIn(props) {
             {Object.values(providers).map(provider => (
                 <div key={provider.name}>
                     <button
-                        onClick={() => signIn(provider.id, { callbackUrl: '/admin' })}
+                        onClick={() => signIn(provider.id, { callbackUrl: 'https:kares.us/admin' })}
                         className='px-16 mb-5 p-3 border-2 border-blue-500 text-lg font-normal bg-blue-300 hover:bg-blue-400 hover:border-blue-600 transition-all'
                     >Sign in with {provider.name}</button>
                 </div>
             ))}
             <button
-                onClick={() => router.push('/')}
+                onClick={() => router.push('https://kares.us/')}
                 className='px-16 p-3 border-2 border-blue-500 text-lg font-normal bg-blue-300 hover:bg-blue-400 hover:border-blue-600 transition-all'
             >
                 Back to Homepage
