@@ -1,6 +1,10 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
+let prodURL = 'https://kares-api.herokuapp.com'
+let localURL = 'http://localhost:3001'
+let apiURL = prodURL
+
 export default NextAuth({
     providers: [
         Providers.Google({
@@ -15,7 +19,7 @@ export default NextAuth({
     },
     callbacks: {
         async signIn(user, account, profile) {
-            const url = `https://kares-api.herokuapp.com/admin/create_account`
+            const url = `${apiURL}/admin/create_account`
             const options = {
                 method: 'POST',
                 headers: {
@@ -40,7 +44,7 @@ export default NextAuth({
             return session
         },
         async jwt(token, user, account, profile, isNewUser) {
-            const url = `https://kares-api.herokuapp.com/admin/get_admin/${token.email}`
+            const url = `${apiURL}/admin/get_admin/${token.email}`
             const options = {
                 method: 'GET',
                 headers: {

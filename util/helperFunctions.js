@@ -20,7 +20,8 @@ export function createCSV(visitors) {
 
     visitors.forEach(vis => {
         visitorsToCSV.push({
-            'Request Fulfilled': vis.requestFulfilled,
+            'Request Fulfilled': vis.requestFulfilled ? 'Yes' : 'No',
+            'Archived': vis.archived ? 'Yes' : 'No',
             'Name': vis.name,
             'Email': vis.email,
             'Phone': vis.phone,
@@ -36,7 +37,7 @@ export function createCSV(visitors) {
             'Credentials': vis.additionalInfo ? vis.additionalInfo.credentials : '',
             'Student': vis.additionalInfo ? vis.additionalInfo.student : '',
             'Veteran': vis.additionalInfo ? vis.additionalInfo.veteran : '',
-            'Spouce of Veteran': vis.additionalInfo ? vis.additionalInfo.spouceOfVeteran : '',
+            'Spouse of Veteran': vis.additionalInfo ? vis.additionalInfo.spouceOfVeteran : '',
             'Require Care': vis.additionalInfo ? vis.additionalInfo.reqChildCare : '',
             'Housing Needs': vis.additionalInfo ? vis.additionalInfo.housingNeeds : '',
             'English Primary Language': vis.additionalInfo ? vis.additionalInfo.englishPrimLang : '',

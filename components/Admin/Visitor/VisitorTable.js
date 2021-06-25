@@ -57,16 +57,21 @@ export default function VisitorTable(props) {
         setVisitorForm(!visitorForm)
     }
 
-    function renderTable(vistrs) {
-        if (vistrs.length === 0) {
-            return <p className='text-center text-2xl my-5'>No visitors found.</p>
-        }
+    function renderSimpleTable(vistrs) {
+        let simpleVisitors = []
+
+        vistrs.forEach(vis => {
+            if (vis.additionalInfo === null || !vis.additionalInfo && !vis.archived) simpleVisitors.push(vis)
+        })
+
+        if (simpleVisitors.length === 0) return null
 
         return (
-            <div className='bg-gray-300 px-4'>
-                {vistrs.map(vis => {
-                    if (!vis.archived) return (
-                        <div className='w-full flex justify-between items-center h-12' key={vis._id}>
+            <>
+                <p className='ml-1 my-3 text-xl font-medium'>Visitors</p>
+                <div className='bg-gray-300 px-4'>
+                    {simpleVisitors.map(vis => (
+                        < div className='w-full flex justify-between items-center h-12' key={vis._id} >
                             <p className='w-full'>{vis.name}</p>
                             <p className='w-full text-right hidden sm:block'>{vis.phone}</p>
                             <div className='w-full flex justify-end'>
@@ -76,11 +81,42 @@ export default function VisitorTable(props) {
                                 <button className='p-1 px-4 rounded-md bg-gray-100 hover:bg-gray-200 transition-all' onClick={() => handleVisitorForm(vis)}><Edit /></button>
                             </div>
                         </div>
-                    )
-                })}
-            </div>
+                    ))}
+                </div>
+            </>
         )
     }
+
+    function renderAdvancedTable(vistrs) {
+        let advancedVisitors = []
+
+        vistrs.forEach(vis => {
+            if (!vis.additionalInfo === null || vis.additionalInfo  && !vis.archived) advancedVisitors.push(vis)
+        })
+
+        if (advancedVisitors.length === 0) return null
+
+        return (
+            <>
+                <p className='ml-1 my-3 text-xl font-medium'>Requested Assistance</p>
+                <div className='bg-gray-300 px-4'>
+                    {advancedVisitors.map(vis => (
+                        < div className='w-full flex justify-between items-center h-12' key={vis._id} >
+                            <p className='w-full'>{vis.name}</p>
+                            <p className='w-full text-right hidden sm:block'>{vis.phone}</p>
+                            <div className='w-full flex justify-end'>
+                                {vis.requestFulfilled ? <Checkmark color='text-green-600' /> : <X color='text-red-600' />}
+                            </div>
+                            <div className='w-full flex justify-end'>
+                                <button className='p-1 px-4 rounded-md bg-gray-100 hover:bg-gray-200 transition-all' onClick={() => handleVisitorForm(vis)}><Edit /></button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </>
+        )
+    }
+
 
     function renderArchivedTable(vistrs) {
         let archivedVisitors = []
@@ -142,7 +178,10 @@ export default function VisitorTable(props) {
                     <p className='w-full text-right'>Manage</p>
                 </div>
 
-                {renderTable(visitors)}
+                {visitors.length === 0 ? <p className='text-center text-2xl my-5'>No visitors found.</p> : null}
+
+                {renderAdvancedTable(visitors)}
+                {renderSimpleTable(visitors)}
                 {renderArchivedTable(visitors)}
 
                 {visitorForm ? <VisitorView handleForm={handleVisitorForm} markVisFulfilled={markFulFilled} data={visitorFormInfo} markVisArchived={markArchived} /> : null}

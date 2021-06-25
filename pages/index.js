@@ -4,6 +4,7 @@ import { fetchAllCounties } from "../util/fetchFunctions"
 import SimpleForm from "../components/Homepage/SimpleForm"
 import AdvancedForm from '../components/Homepage/AdvancedForm'
 import Alert from "../components/Util/Alert"
+import Footer from "../components/Homepage/Footer"
 
 export default function Home(props) {
     const { counties } = props
@@ -38,6 +39,7 @@ export default function Home(props) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

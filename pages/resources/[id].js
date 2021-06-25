@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import { fetchAllResources } from '../../util/fetchFunctions'
+import { fetchAllResources, fetchAllCounties } from '../../util/fetchFunctions'
 
 import TagFilter from '../../components/Resources/TagFilter'
 import Searchbar from '../../components/Resources/Searchbar'
 import ResourceView from '../../components/Resources/ResourceView'
+import AdvancedForm from '../../components/Homepage/AdvancedForm'
 
 export default function Resources(props) {
-    const { resources, alrt } = props
+    const { counties, resources, alrt } = props
     const [filteredResources, setFilteredResources] = useState(resources)
     const [selectedResource, setSelectedResource] = useState(null)
     const [resourceForm, setResourceForm] = useState(false)
     const [pageAlert, setPageAlert] = useState(alrt)
     const [searchFilter, setSearchFilter] = useState('')
     const [tagFilter, setTagFilter] = useState('')
+    const [advancedForm, setAdvancedForm] = useState(false)
+
 
     function handleResourceView(data) {
         setSelectedResource(data)
@@ -45,7 +48,9 @@ export default function Resources(props) {
         return (
             <div className='w-full min-h-screen bg-gray-800 pt-10'>
                 {resourceForm ? <ResourceView handleForm={handleResourceView} data={selectedResource} /> : null}
+                {advancedForm ? <AdvancedForm handleForm={setAdvancedForm} counties={counties} setPageAlert={setPageAlert} /> : null}
                 <div className='w-11/12 max-w-xl mx-auto'>
+                    <button className='w-full p-4 text-lg rounded-md border-2 border-gray-200 bg-gray-200 hover:bg-gray-300 mb-10 transition-all' onClick={() => setAdvancedForm(!advancedForm)}>Request Assistance</button>
                     <Searchbar name={'Resource Name'} value={searchFilter} handleChange={setSearchFilter} />
                     <TagFilter value={tagFilter} setTag={setTagFilter} />
                 </div>
@@ -65,8 +70,10 @@ export default function Resources(props) {
 
 export async function getServerSideProps(context) {
     let resources
+    let counties
     let alrt = null
     const res = await fetchAllResources(context.params.id)
+    const countyRes = await fetchAllCounties()
 
     if (res.type === 'Error') {
         alrt = { type: res.type, message: res.message }
@@ -76,9 +83,18 @@ export async function getServerSideProps(context) {
         alrt = { type: res.type, message: res.message }
     }
 
+    if (countyRes.type === 'Error') {
+        alrt = { type: res.type, message: res.message }
+    }
+    else {
+        counties = countyRes.data
+        alrt = { type: countyRes.type, message: countyRes.message }
+    }
+
     return {
         props: {
             resources,
+            counties,
             alrt
         }
     }

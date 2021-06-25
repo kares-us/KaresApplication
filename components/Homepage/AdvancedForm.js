@@ -70,7 +70,7 @@ export default function SimpleForm(props) {
                 <Input name={'Certificates/Credentials?'} value={credentials} handleChange={setCredentials} />
                 <QuestionDropDown question={'Are you a student?'} answers={['No', 'WKU', 'SKYCTC', 'DAYMAR', 'Indiana Tech', 'Other']} value={student} setValue={setStudent} />
                 <QuestionDropDown question={'Are you a military veteran?'} answers={['Yes', 'No']} value={veteran} setValue={setVeteran} />
-                <QuestionDropDown question={'Are you the spouce of a military veteran?'} answers={['Yes', 'No']} value={spouceOfVeteran} setValue={setSpouceOfVeteran} />
+                <QuestionDropDown question={'Are you the spouse of a military veteran?'} answers={['Yes', 'No']} value={spouceOfVeteran} setValue={setSpouceOfVeteran} />
                 <QuestionDropDown question={'Do you require childcare / adult-care?'} answers={['Yes', 'No']} value={reqChildCare} setValue={setReqChildCare} />
                 <QuestionDropDown question={'Do you have housing needs?'} answers={['Yes', 'No']} value={housingNeeds} setValue={setHousingNeeds} />
                 <QuestionDropDown question={'Is English your primary language?'} answers={['Yes', 'No']} value={englishPrimLang} setValue={setEnglishPrimLang} />
