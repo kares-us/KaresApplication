@@ -85,7 +85,7 @@ export default function SimpleForm(props) {
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                         <button
-                            onClick={() => handleFormSubmission({ countyName: county.name, county, name, email, phone, additionalInfo: { social, address, state, city, zipCode, transportation, employed, highestGrade, credentials, student, veteran, spouseOfVeteran, reqChildCare, housingNeeds, englishPrimLang, criminalHis, disabilityToDisclose, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
+                            onClick={() => handleFormSubmission({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { social, address, state, city, zipCode, transportation, employed, highestGrade, credentials, student, veteran, spouseOfVeteran, reqChildCare, housingNeeds, englishPrimLang, criminalHis, disabilityToDisclose, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
                             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
                         >
                             Submit

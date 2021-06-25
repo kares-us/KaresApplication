@@ -61,7 +61,7 @@ export default function VisitorTable(props) {
         let simpleVisitors = []
 
         vistrs.forEach(vis => {
-            if (vis.additionalInfo === null || !vis.additionalInfo && !vis.archived) simpleVisitors.push(vis)
+            if ((vis.additionalInfo === null || !vis.additionalInfo) && vis.archived === false) simpleVisitors.push(vis)
         })
 
         if (simpleVisitors.length === 0) return null
@@ -91,7 +91,7 @@ export default function VisitorTable(props) {
         let advancedVisitors = []
 
         vistrs.forEach(vis => {
-            if (!vis.additionalInfo === null || vis.additionalInfo  && !vis.archived) advancedVisitors.push(vis)
+            if ((!vis.additionalInfo === null || vis.additionalInfo) && vis.archived === false) advancedVisitors.push(vis)
         })
 
         if (advancedVisitors.length === 0) return null

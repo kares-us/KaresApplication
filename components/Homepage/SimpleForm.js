@@ -38,7 +38,7 @@ export default function SimpleForm(props) {
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                         <button
-                            onClick={() => handleFormSubmission({ county, name, email, phone, countyName: county.name })}
+                            onClick={() => handleFormSubmission({ county, name, email, phone, countyName: county ? county.name : null })}
                             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
                         >
                             Submit
