@@ -25,7 +25,7 @@ export default function SimpleForm(props) {
     const [credentials, setCredentials] = useState('')
     const [student, setStudent] = useState('')
     const [veteran, setVeteran] = useState('')
-    const [spouceOfVeteran, setSpouceOfVeteran] = useState('')
+    const [spouseOfVeteran, setSpouseOfVeteran] = useState('')
     const [reqChildCare, setReqChildCare] = useState('')
     const [housingNeeds, setHousingNeeds] = useState('')
     const [englishPrimLang, setEnglishPrimLang] = useState('')
@@ -70,7 +70,7 @@ export default function SimpleForm(props) {
                 <Input name={'Certificates/Credentials?'} value={credentials} handleChange={setCredentials} />
                 <QuestionDropDown question={'Are you a student?'} answers={['No', 'WKU', 'SKYCTC', 'DAYMAR', 'Indiana Tech', 'Other']} value={student} setValue={setStudent} />
                 <QuestionDropDown question={'Are you a military veteran?'} answers={['Yes', 'No']} value={veteran} setValue={setVeteran} />
-                <QuestionDropDown question={'Are you the spouse of a military veteran?'} answers={['Yes', 'No']} value={spouceOfVeteran} setValue={setSpouceOfVeteran} />
+                <QuestionDropDown question={'Are you the spouse of a military veteran?'} answers={['Yes', 'No']} value={spouseOfVeteran} setValue={setSpouseOfVeteran} />
                 <QuestionDropDown question={'Do you require childcare / adult-care?'} answers={['Yes', 'No']} value={reqChildCare} setValue={setReqChildCare} />
                 <QuestionDropDown question={'Do you have housing needs?'} answers={['Yes', 'No']} value={housingNeeds} setValue={setHousingNeeds} />
                 <QuestionDropDown question={'Is English your primary language?'} answers={['Yes', 'No']} value={englishPrimLang} setValue={setEnglishPrimLang} />
@@ -85,7 +85,7 @@ export default function SimpleForm(props) {
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                         <button
-                            onClick={() => handleFormSubmission({ countyName: county.name, county, name, email, phone, additionalInfo: { social, address, state, city, zipCode, transportation, employed, highestGrade, credentials, student, veteran, spouceOfVeteran, reqChildCare, housingNeeds, englishPrimLang, criminalHis, disabilityToDisclose, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
+                            onClick={() => handleFormSubmission({ countyName: county.name, county, name, email, phone, additionalInfo: { social, address, state, city, zipCode, transportation, employed, highestGrade, credentials, student, veteran, spouseOfVeteran, reqChildCare, housingNeeds, englishPrimLang, criminalHis, disabilityToDisclose, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
                             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
                         >
                             Submit

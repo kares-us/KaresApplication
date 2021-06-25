@@ -5,6 +5,7 @@ import SimpleForm from "../components/Homepage/SimpleForm"
 import AdvancedForm from '../components/Homepage/AdvancedForm'
 import Alert from "../components/Util/Alert"
 import Footer from "../components/Homepage/Footer"
+import Header from "../components/Homepage/Header"
 
 export default function Home(props) {
     const { counties } = props
@@ -15,6 +16,7 @@ export default function Home(props) {
 
     return (
         <div className=''>
+            <Header />
             {simpleForm ? <SimpleForm handleForm={setSimpleForm} counties={counties} setPageAlert={setPageAlert} /> : null}
             {advancedForm ? <AdvancedForm handleForm={setAdvancedForm} counties={counties} setPageAlert={setPageAlert} /> : null}
 
@@ -54,7 +56,6 @@ export async function getServerSideProps(context) {
     }
     else {
         counties = res.data
-        alrt = { type: res.type, message: res.message }
     }
 
     return {

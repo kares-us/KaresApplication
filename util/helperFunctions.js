@@ -37,7 +37,7 @@ export function createCSV(visitors) {
             'Credentials': vis.additionalInfo ? vis.additionalInfo.credentials : '',
             'Student': vis.additionalInfo ? vis.additionalInfo.student : '',
             'Veteran': vis.additionalInfo ? vis.additionalInfo.veteran : '',
-            'Spouse of Veteran': vis.additionalInfo ? vis.additionalInfo.spouceOfVeteran : '',
+            'Spouse of Veteran': vis.additionalInfo ? vis.additionalInfo.spouseOfVeteran : '',
             'Require Care': vis.additionalInfo ? vis.additionalInfo.reqChildCare : '',
             'Housing Needs': vis.additionalInfo ? vis.additionalInfo.housingNeeds : '',
             'English Primary Language': vis.additionalInfo ? vis.additionalInfo.englishPrimLang : '',
