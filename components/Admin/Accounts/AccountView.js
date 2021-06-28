@@ -5,9 +5,7 @@ import Roles from './Roles'
 import CountyDropdown from '../CountyDropdown'
 
 export default function AccountView(props) {
-    const { data, handleForm, editAccount, counties } = props
-
-    console.log()
+    const { data, handleForm, editAccount, removeAccount, counties } = props
 
     const [name, setName] = useState(data.name)
     const [email, setEmail] = useState(data.email)
@@ -16,12 +14,11 @@ export default function AccountView(props) {
     const [county, setCounty] = useState(data.county)
 
     function handleEditAccountSubmission() {
-        console.log('hello')
         let newRoles = []
         admin ? newRoles.push('Admin') : null
         countyManager ? newRoles.push('County Manager') : null
 
-        editAccount({ name, email, roles: newRoles, county })
+        editAccount({ name, email, roles: newRoles, county, countyName: county.name })
     }
 
     return (
@@ -30,10 +27,11 @@ export default function AccountView(props) {
             <div className='w-11/12 max-w-xl bg-white z-10 p-6 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
                 <p className='text-xl'>Viewing: <span className='font-medium'>{data.name}</span></p>
                 <hr className='border-2 my-5' />
+                <p className='my-3 text-xl'>County: <span className='font-medium'>{data.countyName}</span></p>
+                <CountyDropdown selected={county ? county.name : 'Assign County'} counties={counties} setCounty={setCounty} />
                 <Input name={'Name'} value={name} handleChange={setName} disabled />
                 <Input name={'Email'} value={email} handleChange={setEmail} disabled />
                 <Roles roles={{ admin, countyManager }} setAdmin={setAdmin} setCountyManager={setCountyManager} />
-                <CountyDropdown selected={county ? county.name : null} counties={counties} setCounty={setCounty}/>
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                         <button
@@ -47,6 +45,12 @@ export default function AccountView(props) {
                             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'
                         >
                             Close
+                        </button>
+                        <button
+                            onClick={() => removeAccount(email)}
+                            className='p-2 m-1 px-4 w-36 rounded-md border-2 border-red-500 bg-red-300 hover:bg-red-400 transition-all'
+                        >
+                            Delete
                         </button>
                     </div>
                 </div>

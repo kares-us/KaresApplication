@@ -31,6 +31,7 @@ export default function Admin(props) {
                         <CountyTraffic
                             counties={counties}
                             setPageAlert={setPageAlert}
+                            session={session}
                         />
                         :
                         null
@@ -51,11 +52,8 @@ export async function getServerSideProps(context) {
     const isAuth = checkAuth(session)
     const isAdmin = checkAdmin(session)
 
-
     let counties = null
     let alrt = null
-
-
 
     if (session && isAuth) {
         const res = isAdmin ? await fetchAllCounties() : await fetchAdminCounty(session)

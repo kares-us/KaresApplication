@@ -6,7 +6,7 @@ import { SyncLoader } from 'react-spinners'
 import AccountView from './AccountView'
 
 export default function AccountTable(props) {
-    const { accounts, editAccount, counties } = props
+    const { accounts, editAccount, counties, removeAccount } = props
 
     const [accountViewForm, setAdminViewForm] = useState(false)
     const [accountFormInfo, setAdminFormInfo] = useState(null)
@@ -50,7 +50,7 @@ export default function AccountTable(props) {
                     <p className='w-full text-right'>Manage</p>
                 </div>
                 {accounts ? renderTable(accounts) : null}
-                {accountViewForm ? <AccountView data={accountFormInfo} handleForm={handleAccountForm} editAccount={editAccount} counties={counties} /> : null}
+                {accountViewForm ? <AccountView data={accountFormInfo} handleForm={handleAccountForm} editAccount={editAccount} removeAccount={removeAccount} counties={counties} /> : null}
             </div >
             :
             renderLoading()

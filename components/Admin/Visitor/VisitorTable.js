@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { SyncLoader } from 'react-spinners'
 import { useRouter } from 'next/router';
-import { fetchCountyVisitors, markVisitorFulfilled, markVisitorArchived } from '../../../util/fetchFunctions';
+import { fetchCountyVisitors, markVisitorFulfilled, markVisitorArchived, deleteVisitor } from '../../../util/fetchFunctions';
 import { CSVLink } from 'react-csv'
 import { createCSV } from '../../../util/helperFunctions';
 
 import CountyDropdown from '../CountyDropdown';
 import VisitorView from './VisitorView';
+import MonthDropdown from '../MonthDropdown';
 
 import Checkmark from '../../Icons/Checkmark';
 import X from '../../Icons/X'
@@ -14,18 +15,20 @@ import Edit from '../../Icons/Edit'
 
 
 export default function VisitorTable(props) {
-    const { counties, setPageAlert } = props
+    const date = new Date()
+    const { counties, setPageAlert, session } = props
     const [visitorForm, setVisitorForm] = useState(false)
     const [visitorFormInfo, setVisitorFormInfo] = useState()
     const [visitors, setVisitors] = useState(null)
     const [loading, setLoading] = useState(false)
     const [county, setCounty] = useState(counties[0])
-    const router = useRouter()
+    const [filterMonth, setFilterMonth] = useState(date.getMonth())
 
+    const router = useRouter()
 
     async function getCountyVisitors() {
         setLoading(true)
-        const res = await fetchCountyVisitors(county._id)
+        const res = await fetchCountyVisitors(county._id, session)
         if (res.type === 'Success') {
             const fetchedVisitors = res.data
             setVisitors(fetchedVisitors)
@@ -41,13 +44,19 @@ export default function VisitorTable(props) {
     }, [county])
 
     async function markFulFilled(id) {
-        const res = await markVisitorFulfilled(id)
+        const res = await markVisitorFulfilled(id, session)
         if (res.type === 'Success') router.reload()
         else setPageAlert({ type: res.type, message: res.message })
     }
 
     async function markArchived(id) {
-        const res = await markVisitorArchived(id)
+        const res = await markVisitorArchived(id, session)
+        if (res.type === 'Success') router.reload()
+        else setPageAlert({ type: res.type, message: res.message })
+    }
+
+    async function removeVisitor(id) {
+        const res = await deleteVisitor(id, session)
         if (res.type === 'Success') router.reload()
         else setPageAlert({ type: res.type, message: res.message })
     }
@@ -61,7 +70,10 @@ export default function VisitorTable(props) {
         let simpleVisitors = []
 
         vistrs.forEach(vis => {
-            if ((vis.additionalInfo === null || !vis.additionalInfo) && vis.archived === false) simpleVisitors.push(vis)
+            if ((vis.additionalInfo === null || !vis.additionalInfo) && vis.archived === false) {
+                const visDate = new Date(vis.createdAt)
+                if (visDate.getMonth() === filterMonth) simpleVisitors.push(vis)
+            }
         })
 
         if (simpleVisitors.length === 0) return null
@@ -91,7 +103,10 @@ export default function VisitorTable(props) {
         let advancedVisitors = []
 
         vistrs.forEach(vis => {
-            if ((!vis.additionalInfo === null || vis.additionalInfo) && vis.archived === false) advancedVisitors.push(vis)
+            if ((!vis.additionalInfo === null || vis.additionalInfo) && vis.archived === false) {
+                const visDate = new Date(vis.createdAt)
+                if (visDate.getMonth() === filterMonth) advancedVisitors.push(vis)
+            }
         })
 
         if (advancedVisitors.length === 0) return null
@@ -122,7 +137,10 @@ export default function VisitorTable(props) {
         let archivedVisitors = []
 
         vistrs.forEach(vis => {
-            if (vis.archived) archivedVisitors.push(vis)
+            if (vis.archived) {
+                const visDate = new Date(vis.createdAt)
+                if (visDate.getMonth() === filterMonth) archivedVisitors.push(vis)
+            }
         })
 
         if (archivedVisitors.length === 0) return null
@@ -163,7 +181,12 @@ export default function VisitorTable(props) {
             <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
                 <div className='flex items-center justify-between mb-4 px-3'>
                     <p className='text-xl'>{county.name} County</p>
-                    <CSVLink className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all' filename={`${county.name}_visitors.csv`} data={createCSV(visitors)}>Download CSV</CSVLink>
+                    <CSVLink className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all' filename={`${county.name}_visitors.csv`} data={createCSV(visitors, filterMonth)}>Download CSV</CSVLink>
+                </div>
+                <div className='flex items-center justify-between mb-4 px-3'>
+                    <div className='flex items-center w-32'>
+                        <MonthDropdown selected={filterMonth} setMonth={setFilterMonth} />
+                    </div>
                     <div className='flex items-center w-32'>
                         <CountyDropdown selected={county.name} counties={counties} setCounty={setCounty} />
                     </div>
@@ -184,7 +207,7 @@ export default function VisitorTable(props) {
                 {renderSimpleTable(visitors)}
                 {renderArchivedTable(visitors)}
 
-                {visitorForm ? <VisitorView handleForm={handleVisitorForm} markVisFulfilled={markFulFilled} data={visitorFormInfo} markVisArchived={markArchived} /> : null}
+                {visitorForm ? <VisitorView handleForm={handleVisitorForm} markVisFulfilled={markFulFilled} data={visitorFormInfo} markVisArchived={markArchived} removeVisitor={removeVisitor} /> : null}
             </div >
             :
             renderLoading()

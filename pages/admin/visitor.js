@@ -16,9 +16,7 @@ export default function Visitor(props) {
     const isAuth = checkAuth(session)
 
     const { counties } = props
-
-
-
+    
     function renderPage() {
         if (loading) return <Loading />
         else if (!session) return <NotSignedIn />
@@ -32,6 +30,7 @@ export default function Visitor(props) {
                         <VisitorTable
                             counties={counties}
                             setPageAlert={setPageAlert}
+                            session={session}
                         />
                         :
                         null

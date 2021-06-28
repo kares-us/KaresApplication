@@ -2,13 +2,14 @@ let prodURL = 'https://kares-api.herokuapp.com'
 let localURL = 'http://localhost:3001'
 let apiURL = prodURL
 
-export async function fetchCountyVisitors(countyId) {
+export async function fetchCountyVisitors(countyId, session) {
     let url = `${apiURL}/county/get_visitors/${countyId}`
     const options = {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -18,13 +19,14 @@ export async function fetchCountyVisitors(countyId) {
     return json
 }
 
-export async function fetchCountyResources(countyId) {
+export async function fetchCountyResources(countyId, session) {
     let url = `${apiURL}/county/get_resources/${countyId}`
     const options = {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -40,7 +42,8 @@ export async function fetchAdminCounty(session) {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -66,13 +69,14 @@ export async function fetchAllCounties() {
     return json
 }
 
-export async function markVisitorFulfilled(id) {
+export async function markVisitorFulfilled(id, session) {
     const url = `${apiURL}/visitor/mark_fulfilled/${id}`
     const options = {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -82,13 +86,14 @@ export async function markVisitorFulfilled(id) {
     return json
 }
 
-export async function markVisitorArchived(id) {
+export async function markVisitorArchived(id, session) {
     const url = `${apiURL}/visitor/archive_visitor/${id}`
     const options = {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -98,13 +103,14 @@ export async function markVisitorArchived(id) {
     return json
 }
 
-export async function updateResourceInformation(id, newData) {
+export async function updateResourceInformation(id, newData, session) {
     const url = `${apiURL}/resource/update/${id}`
     const options = {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         },
         body: JSON.stringify(newData)
     }
@@ -115,13 +121,14 @@ export async function updateResourceInformation(id, newData) {
     return json
 }
 
-export async function createResource(data) {
+export async function createResource(data, session) {
     const url = `${apiURL}/resource/create`
     const options = {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         },
         body: JSON.stringify(data)
     }
@@ -132,13 +139,14 @@ export async function createResource(data) {
     return json
 }
 
-export async function deleteResource(id) {
+export async function deleteResource(id, session) {
     const url = `${apiURL}/resource/delete/${id}`
     const options = {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -148,13 +156,14 @@ export async function deleteResource(id) {
     return json
 }
 
-export async function createCounty(data) {
+export async function createCounty(data, session) {
     const url = `${apiURL}/county/create`
     const options = {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         },
         body: JSON.stringify(data)
     }
@@ -171,7 +180,8 @@ export async function editCounty(data) {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         },
         body: JSON.stringify(data)
     }
@@ -182,13 +192,14 @@ export async function editCounty(data) {
     return json
 }
 
-export async function fetchAllAdmins() {
+export async function fetchAllAdmins(session) {
     const url = `${apiURL}/admin/get_all`
     const options = {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 
@@ -198,13 +209,14 @@ export async function fetchAllAdmins() {
     return json
 }
 
-export async function updateAdmin(data) {
+export async function updateAdmin(data, session) {
     const url = `${apiURL}/admin/update/${data.email}`
     const options = {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'session': session.user.email
         },
         body: JSON.stringify(data)
     }
@@ -256,6 +268,42 @@ export async function fetchAllResources(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
+        }
+    }
+
+    const res = await fetch(url, options)
+    const json = res.json()
+
+    return json
+}
+
+
+export async function deleteAdmin(email, session) {
+    const url = `${apiURL}/admin/delete/${email}`
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'session': session.user.email
+        }
+    }
+
+    const res = await fetch(url, options)
+    const json = res.json()
+
+    return json
+}
+
+
+export async function deleteVisitor(id, session) {
+    const url = `${apiURL}/visitor/delete/${id}`
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'session': session.user.email
         }
     }
 

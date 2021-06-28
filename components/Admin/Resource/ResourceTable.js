@@ -11,7 +11,7 @@ import Edit from '../../Icons/Edit'
 
 
 export default function ResourceTable(props) {
-    const { counties, setPageAlert } = props
+    const { counties, setPageAlert, session } = props
     const [resources, setResources] = useState(null)
 
     const [county, setCounty] = useState(props.counties[0])
@@ -23,7 +23,7 @@ export default function ResourceTable(props) {
 
     async function getCountyResources() {
         setLoading(true)
-        const res = await fetchCountyResources(county._id)
+        const res = await fetchCountyResources(county._id, session)
         if (res.type === 'Success') {
             const fetchedResources = res.data
             setResources(fetchedResources)
@@ -37,7 +37,7 @@ export default function ResourceTable(props) {
     }, [county])
 
     async function editResource(id, data) {
-        await updateResourceInformation(id, data)
+        await updateResourceInformation(id, data, session)
             .then(res => {
                 if (res.type === 'Success') router.reload()
                 else setPageAlert({ type: res.type, message: res.message })
@@ -45,7 +45,7 @@ export default function ResourceTable(props) {
     }
 
     async function addResource(data) {
-        await createResource(data)
+        await createResource(data, session)
             .then(res => {
                 if (res.type === 'Success') router.reload()
                 else setPageAlert({ type: res.type, message: res.message })
@@ -53,7 +53,7 @@ export default function ResourceTable(props) {
     }
 
     async function removeResource(data) {
-        await deleteResource(data)
+        await deleteResource(data, session)
             .then(res => {
                 if (res.type === 'Success') router.reload()
                 else setPageAlert({ type: res.type, message: res.message })

@@ -15,11 +15,12 @@ export function checkAdmin(session) {
     } else return false
 }
 
-export function createCSV(visitors) {
+export function createCSV(visitors, filterMonth) {
     let visitorsToCSV = []
 
     visitors.forEach(vis => {
-        visitorsToCSV.push({
+        const visDate = new Date(vis.createdAt)
+        if (visDate.getMonth() === filterMonth) visitorsToCSV.push({
             'Request Fulfilled': vis.requestFulfilled ? 'Yes' : 'No',
             'Archived': vis.archived ? 'Yes' : 'No',
             'Name': vis.name,

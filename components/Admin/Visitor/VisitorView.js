@@ -1,7 +1,7 @@
 import KeyText from "../../Util/KeyText"
 
 export default function VisitorView(props) {
-    const { data, handleForm, markVisFulfilled, markVisArchived } = props
+    const { data, handleForm, markVisFulfilled, markVisArchived, removeVisitor } = props
 
     function renderAdditionalInfo(data) {
         return (
@@ -34,7 +34,7 @@ export default function VisitorView(props) {
                 </div>
 
 
-                <div className='flex justify-evenly items-center mt-5'>
+                <div className='flex flex-wrap justify-evenly items-center mt-5'>
                     {data.requestFulfilled ? null :
                         <button
                             onClick={() => markVisFulfilled(data._id)}
@@ -51,6 +51,12 @@ export default function VisitorView(props) {
                             Archive
                         </button>
                     }
+                    <button
+                        onClick={() => removeVisitor(data._id)}
+                        className='p-2 m-1 px-4 w-36 rounded-md border-2 border-red-500 bg-red-300 hover:bg-red-400 transition-all'
+                    >
+                        Delete
+                    </button>
                     <button
                         onClick={() => handleForm(null)}
                         className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'

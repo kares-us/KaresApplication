@@ -33,6 +33,7 @@ export default function Resources(props) {
                         <ResourceTable
                             setPageAlert={setPageAlert}
                             counties={counties}
+                            session={session}
                         />
                         :
                         null

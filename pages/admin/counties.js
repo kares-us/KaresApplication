@@ -21,13 +21,13 @@ export default function counties(props) {
     const { counties } = props
 
     async function addCounty(data) {
-        const res = await createCounty(data)
+        const res = await createCounty(data, session)
         if (res.type === 'Success') router.reload()
         else setPageAlert({ type: res.type, message: res.message })
     }
 
     async function updateCounty(data) {
-        const res = await editCounty(data)
+        const res = await editCounty(data, session)
         if (res.type === 'Success') router.reload()
         else setPageAlert({ type: res.type, message: res.message })
     }

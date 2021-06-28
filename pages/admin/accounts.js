@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSession, getSession } from 'next-auth/client'
-import { fetchAllAdmins, fetchAllCounties, updateAdmin } from '../../util/fetchFunctions'
+import { fetchAllAdmins, fetchAllCounties, updateAdmin, deleteAdmin } from '../../util/fetchFunctions'
 import { useRouter } from 'next/router'
 import { checkAuth, checkAdmin } from '../../util/helperFunctions'
 
@@ -22,21 +22,21 @@ export default function Resources(props) {
 
 
     async function editAccount(data) {
-        console.log('Edit account')
-        await updateAdmin(data)
+        if (!data.county) return setPageAlert({ type: 'Error', message: 'You must select a county.' })
+
+        await updateAdmin(data, session)
             .then(res => {
-                console.log(res.type)
                 if (res.type === 'Success') router.reload()
                 else setPageAlert({ type: res.type, message: res.message })
             })
     }
 
-    async function removeAccount(data) {
-        // await deleteResource(data)
-        //     .then(res => {
-        //         if (res.ok) router.reload()
-        //         else setPageAlert({ type: res.type, message: res.message })
-        //     })
+    async function removeAdmin(email) {
+        await deleteAdmin(email, session)
+            .then(res => {
+                if (res.type === 'Success') router.reload()
+                else setPageAlert({ type: res.type, message: res.message })
+            })
     }
 
 
@@ -55,6 +55,7 @@ export default function Resources(props) {
                             accounts={accounts}
                             counties={counties}
                             editAccount={editAccount}
+                            removeAccount={removeAdmin}
                         />
                         :
                         null
@@ -81,7 +82,7 @@ export async function getServerSideProps(context) {
 
     if (session && isAuth && isAdmin) {
         const countyRes = await fetchAllCounties()
-        const adminRes = await fetchAllAdmins()
+        const adminRes = await fetchAllAdmins(session)
 
         countyRes.type === 'Error' ? alrt = { type: countyRes.type, message: countyRes.message } : null
         adminRes.type === 'Error' ? alrt = { type: adminRes.type, message: adminRes.message } : null

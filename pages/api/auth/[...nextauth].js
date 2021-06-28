@@ -10,7 +10,8 @@ export default NextAuth({
         Providers.Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            domain:'https://kares.us/'
+            domain: 'https://kares.us/'
+
         })
     ],
     pages: {
@@ -58,6 +59,7 @@ export default NextAuth({
 
             token.counties = json.data ? json.data.counties : []
             token.roles = json.data ? json.data.roles : []
+
 
             return token
         }

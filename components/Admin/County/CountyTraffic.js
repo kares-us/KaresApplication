@@ -24,13 +24,13 @@ const options = {
 };
 
 export default function CountyTraffic(props) {
-    const { counties, setPageAlert } = props
+    const { counties, setPageAlert, session } = props
     const [county, setCounty] = useState(props.counties[0])
     const [visitors, setVisitors] = useState()
     const [barData, setBarData] = useState()
 
     async function getCountyVisitors() {
-        const res = await fetchCountyVisitors(county._id)
+        const res = await fetchCountyVisitors(county._id, session)
         if (res.type === 'Success') {
             const fetchedVisitors = res.data
             setVisitors(fetchedVisitors)

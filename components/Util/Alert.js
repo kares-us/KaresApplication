@@ -12,7 +12,7 @@ export default function Alert(props) {
     }
 
     return (
-        <div className={`absolute top-5 left-2/4 transform -translate-x-2/4 border-2 w-full max-w-md p-3 rounded-md font-xl flex justify-between items-center z-50 ${handleType()}`}>
+        <div className={`fixed top-5 left-2/4 transform -translate-x-2/4 border-2 w-full max-w-md p-3 rounded-md font-xl flex justify-between items-center z-50 ${handleType()}`}>
             <p><span className='font-semibold'>{type}</span>: {message}</p>
             <button
                 className='p-1 rounded-xl hover:bg-gray-100 transition-all'

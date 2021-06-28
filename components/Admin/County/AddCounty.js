@@ -4,7 +4,7 @@ import Input from '../../Util/Input'
 
 
 export default function AddCounty(props) {
-    const { handleForm, createCounty } = props
+    const { handleForm, addCounty } = props
 
     const [name, setName] = useState('')
     const [navbar, setNavbar] = useState('#1F2937')
@@ -25,7 +25,7 @@ export default function AddCounty(props) {
                 <Input name={'Button Color'} value={button} handleChange={setButton} />
                 <div className='flex justify-evenly items-center mt-5'>
                     <button
-                        onClick={() => createCounty({ name, design: { navbar, primaryText, secondaryText, button } })}
+                        onClick={() => addCounty({ name, design: { navbar, primaryText, secondaryText, button } })}
                         className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
                     >
                         Create

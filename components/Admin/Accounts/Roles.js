@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function Roles(props) {
     const { roles, setAdmin, setCountyManager } = props
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col my-3'>
             <p className='text-xl mb-3'>Roles</p>
             <div>
                 <input

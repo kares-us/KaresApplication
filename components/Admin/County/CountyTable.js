@@ -54,7 +54,7 @@ export default function CountyTable(props) {
                     <p className='w-full text-right'>Manage</p>
                 </div>
                 {renderTable(counties)}
-                {countyAddForm ? <AddCounty handleForm={setCountyAddForm} createCounty={addCounty} /> : null}
+                {countyAddForm ? <AddCounty handleForm={setCountyAddForm} addCounty={addCounty} /> : null}
                 {countyViewForm ? <CountyView data={countyFormInfo} handleForm={handleCountyForm} editCounty={editCounty} /> : null}
             </div >
             :
