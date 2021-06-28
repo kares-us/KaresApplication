@@ -44,7 +44,7 @@ export default function SimpleForm(props) {
                 if (res.type === 'Error') {
                     setPageAlert({ type: res.type, message: res.message })
                 } else {
-                    router.push(`https://kares.us/resources/${county._id}`)
+                    router.push(`/resources/${county._id}`)
                 }
             })
     }

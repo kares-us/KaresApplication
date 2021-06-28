@@ -11,11 +11,10 @@ export default NextAuth({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             domain: 'https://kares.us/'
-
         })
     ],
     pages: {
-        signIn: 'https://kares.us/admin/signin',
+        signIn: '/admin/signin',
         newUser: null // If set, new users will be directed here on first sign in
     },
     callbacks: {
@@ -37,7 +36,7 @@ export default NextAuth({
         },
         async redirect(url, baseUrl) {
             if (url) return url
-            else return 'https://kares.us/'
+            else return '/'
         },
         async session(session, token) {
             session.user.counties = token.counties

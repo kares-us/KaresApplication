@@ -65,7 +65,7 @@ export async function getServerSideProps(context) {
             alrt = { type: res.type, message: res.message }
         }
     }
-
+    
     return {
         props: {
             counties,
