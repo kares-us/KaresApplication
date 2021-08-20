@@ -36,6 +36,7 @@ export default function TagDropDown(props) {
                     <TagMenuButton name='Legal Assistance' value='legal-assistance' changeTag={setTag} />
                     <TagMenuButton name='Local Gov. Offices' value='local-gov-offices' changeTag={setTag} />
                     <TagMenuButton name='Community Resources' value='community-resources' changeTag={setTag} />
+                    <TagMenuButton name='Schools and Family Resource Centers' value='schools-family-resources ' changeTag={setTag} />
                 </div>
             </div>
         </div>
