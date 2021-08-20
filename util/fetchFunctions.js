@@ -1,6 +1,6 @@
 let prodURL = 'https://kares-api.herokuapp.com'
 let localURL = 'http://localhost:3001'
-let apiURL = prodURL
+let apiURL = localURL
 
 export async function fetchCountyVisitors(countyId, session) {
     let url = `${apiURL}/county/get_visitors/${countyId}`
@@ -110,6 +110,7 @@ export async function updateResourceInformation(id, newData, session) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': ['PATCH'],
             'session': session.user.email
         },
         body: JSON.stringify(newData)
@@ -122,6 +123,8 @@ export async function updateResourceInformation(id, newData, session) {
 }
 
 export async function createResource(data, session) {
+    console.log(data)
+
     const url = `${apiURL}/resource/create`
     const options = {
         method: 'POST',
