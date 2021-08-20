@@ -1,6 +1,6 @@
 let prodURL = 'https://kares-api.herokuapp.com'
 let localURL = 'http://localhost:3001'
-let apiURL = localURL
+let apiURL = prodURL
 
 export async function fetchCountyVisitors(countyId, session) {
     let url = `${apiURL}/county/get_visitors/${countyId}`
