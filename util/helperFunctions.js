@@ -35,7 +35,6 @@ export function createCSV(visitors, filterMonth) {
             'Transportation': vis.additionalInfo ? vis.additionalInfo.transportation : '',
             'Employed': vis.additionalInfo ? vis.additionalInfo.employed : '',
             'Highest Grade': vis.additionalInfo ? vis.additionalInfo.highestGrade : '',
-            'Credentials': vis.additionalInfo ? vis.additionalInfo.credentials : '',
             'Student': vis.additionalInfo ? vis.additionalInfo.student : '',
             'Veteran': vis.additionalInfo ? vis.additionalInfo.veteran : '',
             'Spouse of Veteran': vis.additionalInfo ? vis.additionalInfo.spouseOfVeteran : '',

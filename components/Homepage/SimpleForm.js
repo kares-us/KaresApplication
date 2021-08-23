@@ -33,7 +33,7 @@ export default function SimpleForm(props) {
                 <hr className='border-2 my-5' />
                 <CountyDropdown selected={county ? county.name : null} counties={counties} setCounty={setCounty} />
                 <Input name={'Name'} value={name} handleChange={setName} />
-                <Input name={'Email'} value={email} handleChange={setEmail} />
+                <Input name={'Email *'} value={email} handleChange={setEmail} />
                 <Input name={'Phone'} value={phone} handleChange={setPhone} />
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>

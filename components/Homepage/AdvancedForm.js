@@ -22,7 +22,6 @@ export default function SimpleForm(props) {
     const [transportation, setTransportation] = useState('')
     const [employed, setEmployed] = useState('')
     const [highestGrade, setHighestGrade] = useState('')
-    const [credentials, setCredentials] = useState('')
     const [student, setStudent] = useState('')
     const [veteran, setVeteran] = useState('')
     const [spouseOfVeteran, setSpouseOfVeteran] = useState('')
@@ -57,7 +56,7 @@ export default function SimpleForm(props) {
                 <hr className='border-2 my-5' />
                 <CountyDropdown selected={county ? county.name : null} counties={counties} setCounty={setCounty} />
                 <Input name={'Name'} value={name} handleChange={setName} />
-                <Input name={'Email'} value={email} handleChange={setEmail} />
+                <Input name={'Email *'} value={email} handleChange={setEmail} />
                 <Input name={'Phone'} value={phone} handleChange={setPhone} />
                 <Input name={'Social'} value={social} handleChange={setSocial} />
                 <Input name={'Address'} value={address} handleChange={setAddress} />
@@ -67,7 +66,6 @@ export default function SimpleForm(props) {
                 <QuestionDropDown question={'Do you have transportation?'} answers={['Yes', 'No']} value={transportation} setValue={setTransportation} />
                 <QuestionDropDown question={'Are you employed?'} answers={['Yes', 'No']} value={employed} setValue={setEmployed} />
                 <QuestionDropDown question={'Highest Grade Completed?'} answers={['Did not finish High School', 'HS/GED', 'College Degree', 'Other']} value={highestGrade} setValue={setHighestGrade} />
-                <Input name={'Certificates/Credentials?'} value={credentials} handleChange={setCredentials} />
                 <QuestionDropDown question={'Are you a student?'} answers={['No', 'WKU', 'SKYCTC', 'DAYMAR', 'Indiana Tech', 'Other']} value={student} setValue={setStudent} />
                 <QuestionDropDown question={'Are you a military veteran?'} answers={['Yes', 'No']} value={veteran} setValue={setVeteran} />
                 <QuestionDropDown question={'Are you the spouse of a military veteran?'} answers={['Yes', 'No']} value={spouseOfVeteran} setValue={setSpouseOfVeteran} />
@@ -85,7 +83,7 @@ export default function SimpleForm(props) {
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                         <button
-                            onClick={() => handleFormSubmission({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { social, address, state, city, zipCode, transportation, employed, highestGrade, credentials, student, veteran, spouseOfVeteran, reqChildCare, housingNeeds, englishPrimLang, criminalHis, disabilityToDisclose, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
+                            onClick={() => handleFormSubmission({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { social, address, state, city, zipCode, transportation, employed, highestGrade, student, veteran, spouseOfVeteran, reqChildCare, housingNeeds, englishPrimLang, criminalHis, disabilityToDisclose, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
                             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
                         >
                             Submit

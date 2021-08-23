@@ -19,21 +19,17 @@ export default function TagDropDown(props) {
                 <div className="py-1" role="none">
                     <TagMenuButton name='Mental, Drug, Alcohol Treatment' value='mental-drug-alch' changeTag={setTag} />
                     <TagMenuButton name='Substance Abuse' value='substance-abuse' changeTag={setTag} />
-                    <TagMenuButton name='Domestic Violence' value='domestic-violence' changeTag={setTag} />
-                    <TagMenuButton name='Suicide Prevention' value='suicide-prevention' changeTag={setTag} />
                     <TagMenuButton name='Sex Offender Assistance' value='sex-offender-assistance' changeTag={setTag} />
                     <TagMenuButton name='Gov. Assistance' value='gov-assistance' changeTag={setTag} />
                     <TagMenuButton name='Career Training' value='career-training' changeTag={setTag} />
                     <TagMenuButton name='Transportation' value='transportation' changeTag={setTag} />
                     <TagMenuButton name='Food Bank' value='food-bank' changeTag={setTag} />
-                    <TagMenuButton name='Financial Assistance' value='financial-assistance' changeTag={setTag} />
+                    <TagMenuButton name='Clothing' value='clothing' changeTag={setTag} />
                     <TagMenuButton name='Faith Based' value='faith-based' changeTag={setTag} />
                     <TagMenuButton name='Housing' value='housing' changeTag={setTag} />
                     <TagMenuButton name='Child Care' value='child-care' changeTag={setTag} />
                     <TagMenuButton name='Health Care' value='health-care' changeTag={setTag} />
                     <TagMenuButton name='Housing' value='housing' changeTag={setTag} />
-                    <TagMenuButton name='Medication Assistance' value='medication-assistance' changeTag={setTag} />
-                    <TagMenuButton name='Legal Assistance' value='legal-assistance' changeTag={setTag} />
                     <TagMenuButton name='Local Gov. Offices' value='local-gov-offices' changeTag={setTag} />
                     <TagMenuButton name='Community Resources' value='community-resources' changeTag={setTag} />
                     <TagMenuButton name='Schools and Family Resource Centers' value='schools-family-resources ' changeTag={setTag} />

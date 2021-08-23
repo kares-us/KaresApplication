@@ -29,7 +29,7 @@ export default function VisitorView(props) {
                     <hr className='border-2 my-5 border-gray-300' />
                     <KeyText title={'Full Name'} text={data.name} />
                     <KeyText title={'Phone Number'} text={data.phone} />
-                    <KeyText title={'Email Adress'} text={data.email} />
+                    <KeyText title={'Email Address'} text={data.email} />
                     {data.additionalInfo ? renderAdditionalInfo(data.additionalInfo) : null}
                 </div>
 

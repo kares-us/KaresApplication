@@ -26,7 +26,6 @@ export default function CountyTable(props) {
                 {counties.map(cnty => (
                     <div className='w-full flex justify-between items-center h-12 mb-2' key={cnty._id}>
                         <p className='w-full'>{cnty.name}</p>
-                        <p className='w-full text-right hidden sm:block'>{cnty.resources.length}</p>
                         <div className='w-24 sm:w-full flex justify-end'>
                             <button className='p-1 px-4 rounded-md bg-gray-100 hover:bg-gray-200 transition-all' onClick={() => handleCountyForm(cnty)}><Edit /></button>
                         </div>
@@ -50,7 +49,6 @@ export default function CountyTable(props) {
                 <button onClick={() => setCountyAddForm(!countyAddForm)} className='mb-5 p-1 px-4 h-12 rounded-md bg-gray-100 hover:bg-gray-300 transition-all'>Add</button>
                 <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
                     <p className='w-full'>Name</p>
-                    <p className='w-full text-right'>Resources</p>
                     <p className='w-full text-right'>Manage</p>
                 </div>
                 {renderTable(counties)}

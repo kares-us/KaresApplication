@@ -25,23 +25,20 @@ export default function TagFilter(props) {
                     <TagMenuButton name='All' value='' changeTag={handleValueChange} />
                     <TagMenuButton name='Mental, Drug, Alcohol Treatment' value='mental-drug-alch' changeTag={handleValueChange} />
                     <TagMenuButton name='Substance Abuse' value='substance-abuse' changeTag={handleValueChange} />
-                    <TagMenuButton name='Domestic Violence' value='domestic-violence' changeTag={handleValueChange} />
-                    <TagMenuButton name='Suicide Prevention' value='suicide-prevention' changeTag={handleValueChange} />
                     <TagMenuButton name='Sex Offender Assistance' value='sex-offender-assistance' changeTag={handleValueChange} />
                     <TagMenuButton name='Gov. Assistance' value='gov-assistance' changeTag={handleValueChange} />
                     <TagMenuButton name='Career Training' value='career-training' changeTag={handleValueChange} />
                     <TagMenuButton name='Transportation' value='transportation' changeTag={handleValueChange} />
                     <TagMenuButton name='Food Bank' value='food-bank' changeTag={handleValueChange} />
-                    <TagMenuButton name='Financial Assistance' value='financial-assistance' changeTag={handleValueChange} />
+                    <TagMenuButton name='Clothing' value='clothing' changeTag={setTag} />
                     <TagMenuButton name='Faith Based' value='faith-based' changeTag={handleValueChange} />
                     <TagMenuButton name='Housing' value='housing' changeTag={handleValueChange} />
                     <TagMenuButton name='Child Care' value='child-care' changeTag={handleValueChange} />
                     <TagMenuButton name='Health Care' value='health-care' changeTag={handleValueChange} />
                     <TagMenuButton name='Housing' value='housing' changeTag={handleValueChange} />
-                    <TagMenuButton name='Medication Assistance' value='medication-assistance' changeTag={handleValueChange} />
-                    <TagMenuButton name='Legal Assistance' value='legal-assistance' changeTag={handleValueChange} />
                     <TagMenuButton name='Local Gov. Offices' value='local-gov-offices' changeTag={handleValueChange} />
                     <TagMenuButton name='Community Resources' value='community-resources' changeTag={handleValueChange} />
+                    <TagMenuButton name='Schools and Family Resource Centers' value='schools-family-resources ' changeTag={setTag} />
                 </div>
             </div>
         </div>
