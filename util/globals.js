@@ -4,5 +4,5 @@ const localDBURI = 'http://localhost:3001'
 const prodSiteURL = 'https://kares.us'
 const localSiteURL = 'http://localhost:3000'
 
-export const dbURI = prodDBURI
-export const siteURL = prodSiteURL
+export const dbURI = localDBURI
+export const siteURL = localSiteURL
