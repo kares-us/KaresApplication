@@ -31,7 +31,7 @@ export default function Accounts(props) {
     }
 
     if (loading) return <Loading />
-    else if (session) return (
+    else if (session && counties) return (
         <div className='w-full min-h-screen bg-gray-800'>
             <Navbar session={session} />
             {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
