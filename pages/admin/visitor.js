@@ -1,76 +1,91 @@
 import { useState } from 'react'
 import { useSession, getSession } from 'next-auth/client'
-import { fetchAdminCounty, fetchAllCounties } from '../../util/fetchFunctions'
-import { checkAdmin, checkAuth } from '../../util/helperFunctions'
+import { useRouter } from 'next/router'
+import fetchHelper from '../../util/fetchHelper'
 
 import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
-import NotSignedIn from '../../components/Admin/Error/NotSignedIn'
-import NotAuthed from '../../components/Admin/Error/NotAuthed'
 import VisitorTable from '../../components/Admin/Visitor/VisitorTable'
 import Alert from '../../components/Util/Alert'
 
 export default function Visitor(props) {
+    const { counties } = props
     const [pageAlert, setPageAlert] = useState(props.alrt)
     const [session, loading] = useSession()
-    const isAuth = checkAuth(session)
+    const router = useRouter()
 
-    const { counties } = props
-    
-    function renderPage() {
-        if (loading) return <Loading />
-        else if (!session) return <NotSignedIn />
-        else if (session && !loading && !isAuth) return <NotAuthed />
-        else if (session && !loading && isAuth) {
-            return (
-                <div className='w-full min-h-screen bg-gray-800'>
-                    <Navbar session={session} />
-                    {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
-                    {counties ?
-                        <VisitorTable
-                            counties={counties}
-                            setPageAlert={setPageAlert}
-                            session={session}
-                        />
-                        :
-                        null
-                    }
 
-                </div>
-            )
-        }
+    async function getVisitorsByCounty(id) {
+        let res = await fetchHelper(`/api/visitor/county/${id}`, "GET")
+        let json = await res.json()
+
+        if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
+        else return json
     }
 
-    return (
-        renderPage()
+    async function markVisitorFulfilled(id) {
+        let res = await fetchHelper(`/api/visitor/mark_fulfilled/${id}`, "POST")
+        let json = await res.json()
+
+        if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
+        else router.reload()
+    }
+
+    async function markVisitorArchived(id) {
+        let res = await fetchHelper(`/api/visitor/mark_archived/${id}`, "POST")
+        let json = await res.json()
+
+        if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
+        else router.reload()
+    }
+
+    async function deleteVisitor(id) {
+        let res = await fetchHelper(`/api/visitor/delete/${id}`, "DELETE")
+        let json = await res.json()
+
+        if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
+        else router.reload()
+    }
+
+
+
+
+    if (loading) return <Loading />
+    else if (session) return (
+        <div className='w-full min-h-screen bg-gray-800'>
+
+            <Navbar session={session} />
+            {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
+            {counties.length > 0 ?
+                <VisitorTable
+                    counties={counties}
+                    functions={{ getVisitorsByCounty, markVisitorArchived, markVisitorFulfilled, deleteVisitor }}
+                />
+                :
+                <p className='mt-5 text-center text-white'>There are currently no counties tied to your account.</p>
+            }
+        </div>
     )
 }
 
 export async function getServerSideProps(context) {
     const session = await getSession(context)
-    const isAuth = checkAuth(session)
-    const isAdmin = checkAdmin(session)
 
+    if (!session) return { redirect: { destination: '/api/auth/signin' } }
+    if (!session.user.roles.includes("County Manager")) return { redirect: { destination: '/admin' } }
+    else if (session.user.roles.includes("County Manager")) return { props: { counties: session.user.counties } }
+    else if (session.user.roles.includes("Admin")) {
+        let counties = null
+        let resCounties = await fetchHelper('/api/county', "GET")
+        let jsonCounties = await resCounties.json()
 
-    let counties = null
-    let alrt = null
+        if (!resCounties.ok) alrt = { type: "Error", message: jsonCounties.message }
+        else counties = jsonCounties.data
 
-    if (session && isAuth) {
-        const res = isAdmin ? await fetchAllCounties() : await fetchAdminCounty(session)
-
-        if (res.type === 'Error') {
-            alrt = { type: res.type, message: res.message }
-        }
-        else {
-            counties = res.data
-            alrt = { type: res.type, message: res.message }
-        }
-    }
-
-    return {
-        props: {
-            counties,
-            alrt
+        return {
+            props: {
+                counties: session.user.counties
+            }
         }
     }
 }

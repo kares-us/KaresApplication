@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Input from '../../Util/Input'
 export default function ResourceView(props) {
-    const { data, handleForm, editCounty } = props
+    const { data, handleForm, updateCounty } = props
     const { design } = data
 
     const [name, setName] = useState(data.name)
@@ -18,7 +18,7 @@ export default function ResourceView(props) {
             <div className='w-11/12 max-w-xl bg-white z-10 p-6 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
                 <p className='text-xl'>Viewing: <span className='font-medium'>{data.name}</span></p>
                 <hr className='border-2 my-5' />
-                <Input name={'Name'} value={name} handleChange={setName} />
+                <Input name={'Name'} value={name} handleChange={setName} disabled />
                 <Input name={'Navbar'} value={navbar} handleChange={setNavbar} />
                 <Input name={'Primary Text'} value={primaryText} handleChange={setPrimaryText} />
                 <Input name={'Secondary Text'} value={secondaryText} handleChange={setSecondaryText} />
@@ -26,7 +26,7 @@ export default function ResourceView(props) {
                 <div className='flex justify-evenly items-center mt-5'>
                     <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                         <button
-                            onClick={() => editCounty({ id: data._id, name, design: { navbar, primaryText, secondaryText, button } })}
+                            onClick={() => updateCounty(data._id, { design: { navbar, primaryText, secondaryText, button } })}
                             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
                         >
                             Save Changes

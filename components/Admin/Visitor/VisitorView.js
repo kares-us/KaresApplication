@@ -1,7 +1,7 @@
 import KeyText from "../../Util/KeyText"
 
 export default function VisitorView(props) {
-    const { data, handleForm, markVisFulfilled, markVisArchived, removeVisitor } = props
+    const { data, handleForm, markVisFulfilled, markVisArchived, deleteVisitor } = props
 
     function renderAdditionalInfo(data) {
         return (
@@ -22,7 +22,7 @@ export default function VisitorView(props) {
 
     return (
         <div className='fixed top-0 left-0 transform w-full h-full flex justify-center items-center '>
-            <div className='absolute top-0 left-0 z-0 transform w-full h-full bg-black opacity-50' onClick={() => handleForm(null)}></div>
+            <div className='absolute top-0 left-0 z-0 transform w-full h-full bg-black opacity-50' onClick={() => handleForm({ open: false, data: null })}></div>
             <div className='w-11/12 max-w-xl bg-white z-10 p-4 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
                 <div className='p-4 rounded-md bg-gray-200'>
                     <p className='text-xl'>Viewing: <span className='font-medium'>{data.name}</span></p>
@@ -52,13 +52,13 @@ export default function VisitorView(props) {
                         </button>
                     }
                     <button
-                        onClick={() => removeVisitor(data._id)}
+                        onClick={() => deleteVisitor(data._id)}
                         className='p-2 m-1 px-4 w-36 rounded-md border-2 border-red-500 bg-red-300 hover:bg-red-400 transition-all'
                     >
                         Delete
                     </button>
                     <button
-                        onClick={() => handleForm(null)}
+                        onClick={() => handleForm({ open: false, data: null })}
                         className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'
                     >
                         Close

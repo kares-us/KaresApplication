@@ -1,16 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import fetchHelper from '../../../util/fetchHelper'
 
 import Edit from '../../Icons/Edit'
-import { SyncLoader } from 'react-spinners'
 
 import AccountView from './AccountView'
+import Loading from '../Error/Loading'
 
 export default function AccountTable(props) {
-    const { accounts, editAccount, counties, removeAccount } = props
+    const { counties, updateAccount, getAccounts } = props
 
+    const [accounts, setAccounts] = useState(null)
     const [accountViewForm, setAdminViewForm] = useState(false)
     const [accountFormInfo, setAdminFormInfo] = useState(null)
 
+    async function fetchAccounts() {
+        const x = await getAccounts()
+        if (x !== undefined) setAccounts(x.data)
+        else return
+    }
+
+    useEffect(() => {
+        fetchAccounts()
+    }, [null])
 
     function handleAccountForm(data) {
         setAdminFormInfo(data)
@@ -33,27 +44,34 @@ export default function AccountTable(props) {
         )
     }
 
-    function renderLoading() {
-        return (
-            <div className='h-screen flex justify-center items-center'>
-                <SyncLoader color={'#374151'} />
+    if (!accounts) return <Loading />
+    else return (
+        <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
+            <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
+                <p className='w-full'>Email</p>
+                <p className='w-full text-right hidden sm:block'>Name</p>
+                <p className='w-full text-right'>Manage</p>
             </div>
-        )
-    }
+            {accounts ? renderTable(accounts) : null}
+            {accountViewForm ? <AccountView data={accountFormInfo} counties={counties} handleForm={handleAccountForm} updateAccount={updateAccount} /> : null}
+        </div >
+    )
+}
 
-    return (
-        accounts && counties ?
-            <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
-                <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
-                    <p className='w-full'>Email</p>
-                    <p className='w-full text-right hidden sm:block'>Name</p>
-                    <p className='w-full text-right'>Manage</p>
-                </div>
-                {accounts ? renderTable(accounts) : null}
-                {accountViewForm ? <AccountView data={accountFormInfo} handleForm={handleAccountForm} editAccount={editAccount} removeAccount={removeAccount} counties={counties} /> : null}
-            </div >
-            :
-            renderLoading()
-    );
+
+export async function getStaticProps(context) {
+    let accounts = null
+
+    let resAdmins = await fetchHelper('/api/admin', "GET")
+    let jsonAdmins = await resAdmins.json()
+
+    if (!resAdmins.ok) alrt = { type: "Error", message: jsonAdmins.message }
+    else accounts = jsonAdmins.data
+
+    console.log(jsonAdmins)
+
+    return {
+        props: { accounts }
+    }
 }
 

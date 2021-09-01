@@ -1,15 +1,15 @@
 import { useState } from "react"
-import { fetchAllCounties } from "../util/fetchFunctions"
+import fetchHelper from "../util/fetchHelper"
 
-import SimpleForm from "../components/Homepage/SimpleForm"
-import AdvancedForm from '../components/Homepage/AdvancedForm'
+import SimpleForm from "../components/Homepage/Modals/SimpleForm"
+import AdvancedForm from '../components/Homepage/Modals/AdvancedForm'
 import Alert from "../components/Util/Alert"
-import Footer from "../components/Homepage/Footer"
-import Header from "../components/Homepage/Header"
+import Footer from "../components/Homepage/Design/Footer"
+import Header from "../components/Homepage/Design/Header"
 
 export default function Home(props) {
-    const { counties } = props
-    const [pageAlert, setPageAlert] = useState(props.alrt)
+    const { counties, alrt } = props
+    const [pageAlert, setPageAlert] = useState(alrt)
     const [simpleForm, setSimpleForm] = useState(false)
     const [advancedForm, setAdvancedForm] = useState(false)
 
@@ -49,14 +49,13 @@ export default function Home(props) {
 export async function getServerSideProps(context) {
     let counties
     let alrt = null
-    const res = await fetchAllCounties()
 
-    if (res.type === 'Error') {
-        alrt = { type: res.type, message: res.message }
-    }
-    else {
-        counties = res.data
-    }
+
+    let res = await fetchHelper('/api/county', "GET")
+    let json = await res.json()
+
+    if (!res.ok) alrt = { type: "Error", message: json.message }
+    else counties = json.data
 
     return {
         props: {

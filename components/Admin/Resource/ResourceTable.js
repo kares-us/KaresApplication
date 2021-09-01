@@ -1,79 +1,39 @@
 import { useState, useEffect } from 'react';
-import { SyncLoader } from 'react-spinners'
-import { useRouter } from 'next/router'
 
-import { fetchCountyResources, updateResourceInformation, createResource, deleteResource } from '../../../util/fetchFunctions';
-
-import CountyDropdown from '../CountyDropdown';
+import CountyDropdown from '../../Util/CountyDropdown';
 import ResourceView from './ResourceView';
 import AddResource from './AddResource';
 import Edit from '../../Icons/Edit'
+import Loading from '../Error/Loading';
 
 
 export default function ResourceTable(props) {
-    const { counties, setPageAlert, session } = props
+    const { counties, functions } = props
+    const { getCountyResources, createCountyResource, updateCountyResource, deleteCountyResource } = functions
     const [resources, setResources] = useState(null)
 
     const [county, setCounty] = useState(props.counties[0])
-    const [resourceForm, setResourceForm] = useState(false)
+    const [resourceViewForm, setResourceViewForm] = useState({ open: false, data: null })
     const [resourceAddForm, setResourceAddForm] = useState(false)
-    const [resourceFormInfo, setResourceFormInfo] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const router = useRouter()
 
-    async function getCountyResources() {
-        setLoading(true)
-        const res = await fetchCountyResources(county._id, session)
-        if (res.type === 'Success') {
-            const fetchedResources = res.data
-            setResources(fetchedResources)
-        }
-        setPageAlert({ type: res.type, message: res.message })
-        setLoading(false)
+    async function fetchResources() {
+        const x = await getCountyResources(county._id)
+        setResources(x.data)
     }
 
     useEffect(() => {
-        getCountyResources()
+        fetchResources()
     }, [county])
 
-    async function editResource(id, data) {
-        await updateResourceInformation(id, data, session)
-            .then(res => {
-                if (res.type === 'Success') router.reload()
-                else setPageAlert({ type: res.type, message: res.message })
-            })
-    }
-
-    async function addResource(data) {
-        await createResource(data, session)
-            .then(res => {
-                if (res.type === 'Success') router.reload()
-                else setPageAlert({ type: res.type, message: res.message })
-            })
-    }
-
-    async function removeResource(data) {
-        await deleteResource(data, session)
-            .then(res => {
-                if (res.type === 'Success') router.reload()
-                else setPageAlert({ type: res.type, message: res.message })
-            })
-    }
-
-    function handleResourceForm(data) {
-        setResourceFormInfo(data)
-        setResourceForm(!resourceForm)
-    }
-
-    function renderTable(resources) {
+    function renderTable(data) {
         return (
-            <div className='bg-gray-300 px-4 rounded-md'>
-                {resources.map(res => (
-                    <div className='w-full flex justify-between items-center h-12 mb-2' key={res._id}>
-                        <p className='w-full'>{res.name}</p>
-                        <p className='w-full text-right hidden sm:block'>{res.tag}</p>
+            <div className='flex flex-col rounded-md'>
+                {data.map((resc, index) => (
+                    <div className={`w-full flex justify-between items-center p-3 ${index % 2 === 0 ? 'bg-gray-300' : 'bg-gray-200'}`} key={resc._id}>
+                        <p className='w-full'>{resc.name}</p>
+                        <p className='w-full text-right hidden sm:block'>{resc.tag}</p>
                         <div className='w-24 sm:w-full flex justify-end'>
-                            <button className='p-1 px-4 rounded-md bg-gray-100 hover:bg-gray-200 transition-all' onClick={() => handleResourceForm(res)}><Edit /></button>
+                            <button className='p-1 px-4 rounded-md bg-gray-600 hover:bg-gray-800 transition-all' onClick={() => setResourceViewForm({ open: !resourceViewForm.open, data: resc })}><Edit color='text-gray-200' /></button>
                         </div>
                     </div>
                 ))}
@@ -81,51 +41,39 @@ export default function ResourceTable(props) {
         )
     }
 
-    function renderLoading() {
-        return (
-            <div className='h-screen flex justify-center items-center'>
-                <SyncLoader color={'#374151'} />
+    if (!resources) return <Loading />
+    else return (
+        <div className='w-11/12 max-w-5xl m-auto mt-3 p-4 bg-gray-100 flex flex-col'>
+            <div className='flex justify-between items-center px-3 mb-4'>
+                <p className='text-2xl'>{county.name} County</p>
+
+                <p className='text-xl'>Total Resources: {resources.length}</p>
             </div>
-        )
-    }
-
-    return (
-        resources && !loading && county ?
-            <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
-                <div className='flex items-center mb-4 px-3'>
-                    <p className='text-xl'>{county.name} County</p>
-                    <div className='flex items-center ml-auto w-32'>
-                        <CountyDropdown
-                            selected={county.name}
-                            counties={counties}
-                            setCounty={setCounty}
-                        />
-                    </div>
+            <div className='flex justify-between'>
+                <button
+                    className='w-32 text-center bg-white h-10 border-2 border-gray-200 text-sm font-medium rounded-md shadow-sm hover:bg-gray-100 transition-all'
+                    onClick={() => setResourceAddForm(!resourceAddForm)}
+                >
+                    Add
+                </button>
+                <div className='w-56'>
+                    <CountyDropdown selected={county.name} counties={counties} setCounty={setCounty} />
                 </div>
-
-                <div className='flex justify-between items-center px-3 mb-2'>
-                    <p className='text-xl'>Total Resources: {resources.length}</p>
-                    <button
-                        className='w-32 text-center bg-white h-10 border-2 border-gray-200 text-sm font-medium rounded-md shadow-sm hover:bg-gray-100 transition-all'
-                        onClick={() => setResourceAddForm(!resourceAddForm)}
-                    >
-                        Add
-                    </button>
-                </div>
-
-                <hr className='border-2 border-gray-300 my-4 mx-2' />
-
-                <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
-                    <p className='w-full'>Name</p>
-                    <p className='w-full text-right hidden sm:block'>Tag</p>
-                    <p className='w-full text-right'>Manage</p>
-                </div>
-
-                {renderTable(resources)}
-                {resourceAddForm ? <AddResource handleForm={setResourceAddForm} addResource={addResource} counties={counties} /> : null}
-                {resourceForm ? <ResourceView handleForm={handleResourceForm} editResource={editResource} removeResource={removeResource} data={resourceFormInfo} /> : null}
             </div>
-            :
-            renderLoading()
+
+            <hr className='border bg-gray-300 border-gray-300 my-3' />
+
+            <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
+                <p className='w-full'>Name</p>
+                <p className='w-full text-right hidden sm:block'>Tag</p>
+                <p className='w-full text-right'>Manage</p>
+            </div>
+
+            {renderTable(resources)}
+
+            {resourceViewForm.open ? <ResourceView data={resourceViewForm.data} counties={counties} handleForm={setResourceViewForm} updateCountyResource={updateCountyResource} deleteCountyResource={deleteCountyResource} /> : null}
+            {resourceAddForm ? <AddResource counties={counties} handleForm={setResourceAddForm} createCountyResource={createCountyResource} /> : null}
+
+        </div>
     )
 }

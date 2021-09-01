@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { fetchAllResources, fetchAllCounties } from '../../util/fetchFunctions'
+import fetchHelper from '../../util/fetchHelper'
 
-import TagFilter from '../../components/Resources/TagFilter'
+import TagDropDown from '../../components/Util/TagDropdown'
 import Searchbar from '../../components/Resources/Searchbar'
 import ResourceView from '../../components/Resources/ResourceView'
-import AdvancedForm from '../../components/Homepage/AdvancedForm'
+import AdvancedForm from '../../components/Homepage/Modals/AdvancedForm'
 
 export default function Resources(props) {
     const { counties, resources, alrt } = props
@@ -52,7 +52,7 @@ export default function Resources(props) {
                 <div className='w-11/12 max-w-xl mx-auto'>
                     <button className='w-full p-4 text-lg rounded-md border-2 border-gray-200 bg-gray-200 hover:bg-gray-300 mb-10 transition-all' onClick={() => setAdvancedForm(!advancedForm)}>Request Assistance</button>
                     <Searchbar name={'Resource Name'} value={searchFilter} handleChange={setSearchFilter} />
-                    <TagFilter value={tagFilter} setTag={setTagFilter} />
+                    <TagDropDown setTag={setTagFilter} value={tagFilter} />
                 </div>
 
                 <div className='flex flex-wrap justify-center'>
@@ -72,24 +72,18 @@ export async function getServerSideProps(context) {
     let resources
     let counties
     let alrt = null
-    const res = await fetchAllResources(context.params.id)
-    const countyRes = await fetchAllCounties()
 
-    if (res.type === 'Error') {
-        alrt = { type: res.type, message: res.message }
-    }
-    else {
-        resources = res.data
-        alrt = { type: res.type, message: res.message }
-    }
+    let resResources = await fetchHelper(`/api/resource/county/${context.params.id}`, "GET")
+    let jsonResources = await resResources.json()
 
-    if (countyRes.type === 'Error') {
-        alrt = { type: res.type, message: res.message }
-    }
-    else {
-        counties = countyRes.data
-        alrt = { type: countyRes.type, message: countyRes.message }
-    }
+    let resCounties = await fetchHelper(`/api/county`, "GET")
+    let jsonCounties = await resCounties.json()
+
+    if (!resResources.ok) alrt = { type: "Error", message: jsonResources.message }
+    else resources = jsonResources.data
+
+    if (!resCounties.ok) alrt = { type: "Error", message: jsonCounties.message }
+    else counties = jsonCounties.data
 
     return {
         props: {

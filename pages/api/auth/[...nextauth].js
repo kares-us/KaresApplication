@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
-let prodURL = 'https://kares-api.herokuapp.com'
-let localURL = 'http://localhost:3001'
-let apiURL = prodURL
+import { dbURI, siteURL } from '../../../util/globals'
+
+
 
 export default NextAuth({
     providers: [
@@ -19,7 +19,7 @@ export default NextAuth({
     },
     callbacks: {
         async signIn(user, account, profile) {
-            const url = `${apiURL}/admin/create_account`
+            const url = `${dbURI}/admin/login`
             const options = {
                 method: 'POST',
                 headers: {
@@ -44,21 +44,29 @@ export default NextAuth({
             return session
         },
         async jwt(token, user, account, profile, isNewUser) {
-            const url = `${apiURL}/admin/get_admin/${token.email}`
-            const options = {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+            const providerToken = account ? account.id_token : null
+
+            if (providerToken !== null) {
+                const url = `${dbURI}/admin/token`
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: providerToken
+                    })
                 }
+
+                const res = await fetch(url, options)
+                const json = await res.json()
+
+                console.log(json)
+
+                token.counties = json.data ? json.data.counties : []
+                token.roles = json.data ? json.data.roles : []
             }
-
-            const res = await fetch(url, options)
-            const json = await res.json()
-
-            token.counties = json.data ? json.data.counties : []
-            token.roles = json.data ? json.data.roles : []
-
 
             return token
         }

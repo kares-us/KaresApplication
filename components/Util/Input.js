@@ -1,9 +1,14 @@
 export default function Input(props) {
-    const { name, value, handleChange, disabled } = props
+    const { name, value, handleChange, disabled, required } = props
 
     function handleValue() {
         if (!value) return ''
         return value
+    }
+
+    function handleRequired() {
+        if (required) return <span className='text-red-500'>*</span>
+        return ''
     }
 
     function handleDisability() {
@@ -13,7 +18,7 @@ export default function Input(props) {
 
     return (
         <div>
-            <p className='text-xl my-2'>{name.charAt(0).toUpperCase() + name.slice(1)}</p>
+            <p className='text-xl my-2'>{name.charAt(0).toUpperCase() + name.slice(1)} {handleRequired()}</p>
             <input
                 value={handleValue()}
                 onChange={(e) => handleChange(e.target.value)}
