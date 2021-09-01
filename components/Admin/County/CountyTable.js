@@ -36,14 +36,6 @@ export default function CountyTable(props) {
         )
     }
 
-    function renderLoading() {
-        return (
-            <div className='h-screen flex justify-center items-center'>
-                <SyncLoader color={'#374151'} />
-            </div>
-        )
-    }
-
     if (!counties) return <Loading />
     else return (
         <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-100 flex flex-col'>
