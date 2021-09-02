@@ -1,30 +1,17 @@
-import { siteURL } from "./globals"
+import { dbURI } from "./globals"
 
 export default async function fetchHelper(url, method, data) {
   let getOptions = {
     method: "GET",
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "PUT, POST, PATCH, DELETE, GET",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    }
   }
   let deleteOptions = {
-    method: "DELETE",
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "PUT, POST, PATCH, DELETE, GET",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    }
+    method: "DELETE"
   }
   let patchOptions = {
     method: "PATCH",
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "PUT, POST, PATCH, DELETE, GET",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     },
     body: JSON.stringify(data)
   }
@@ -33,10 +20,7 @@ export default async function fetchHelper(url, method, data) {
     method: "POST",
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "PUT, POST, PATCH, DELETE, GET",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   }
@@ -49,7 +33,7 @@ export default async function fetchHelper(url, method, data) {
   if (method === 'DELETE') fetchOptions = deleteOptions
 
 
-  let res = await fetch(`${siteURL}${url}`, fetchOptions)
+  let res = await fetch(`${dbURI}${url}`, fetchOptions)
 
   return res
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { formatMonth } from '../../util/dataFormatters'
+import { formatMonth } from '../../util/helperFunctions'
 
 export default function MonthDropdown(props) {
     const { selected, setMonth } = props

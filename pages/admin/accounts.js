@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSession, getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import fetchHelper from '../../util/fetchHelper'
+import { dbURI } from '../../util/globals'
 
 import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
@@ -15,7 +16,7 @@ export default function Accounts(props) {
     const router = useRouter()
 
     async function getAccounts() {
-        const res = await fetchHelper('/api/admin', "GET")
+        const res = await fetchHelper(`/admin`, "GET")
         const json = await res.json()
 
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
@@ -23,7 +24,7 @@ export default function Accounts(props) {
     }
 
     async function updateAccount(id, data) {
-        const res = await fetchHelper(`/api/admin/update/${id}`, "PATCH", data)
+        const res = await fetchHelper(`/admin/update/${id}`, "PATCH", data)
         const json = await res.json()
 
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
@@ -60,7 +61,7 @@ export async function getServerSideProps(context) {
 
     if (!session.user.roles.includes("Admin")) return { redirect: { destination: '/admin' } }
 
-    let resCounties = await fetchHelper('/api/county', "GET")
+    let resCounties = await fetchHelper('/county', "GET")
     let jsonCounties = await resCounties.json()
 
     if (!resCounties.ok) alrt = { type: "Error", message: jsonCounties.message }

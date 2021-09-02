@@ -16,25 +16,25 @@ export default function Resources(props) {
     const router = useRouter()
 
     async function getCountyResources(id) {
-        const res = await fetchHelper(`/api/resource/county/${id}`, "GET")
+        const res = await fetchHelper(`/resource/county/${id}`, "GET")
         const json = await res.json()
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
         else return json
     }
     async function createCountyResource(data) {
-        const res = await fetchHelper(`/api/resource/create`, "POST", data)
+        const res = await fetchHelper(`/resource/create`, "POST", data)
         const json = await res.json()
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
         else router.reload()
     }
     async function updateCountyResource(id, data) {
-        const res = await fetchHelper(`/api/resource/update/${id}`, "PATCH", data)
+        const res = await fetchHelper(`/resource/update/${id}`, "PATCH", data)
         const json = await res.json()
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
         else router.reload()
     }
     async function deleteCountyResource(id) {
-        const res = await fetchHelper(`/api/resource/delete/${id}`, "DELETE")
+        const res = await fetchHelper(`/resource/delete/${id}`, "DELETE")
         const json = await res.json()
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
         else router.reload()
@@ -66,7 +66,7 @@ export async function getServerSideProps(context) {
     if (!session) return { redirect: { destination: '/api/auth/signin' } }
     if (!session.user.roles.includes("Admin")) return { redirect: { destination: '/admin' } }
 
-    let resCounties = await fetchHelper('/api/county', "GET")
+    let resCounties = await fetchHelper('/county', "GET")
     let jsonCounties = await resCounties.json()
 
     if (!resCounties.ok) alrt = { type: "Error", message: jsonCounties.message }

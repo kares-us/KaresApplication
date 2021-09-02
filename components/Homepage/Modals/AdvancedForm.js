@@ -33,7 +33,7 @@ export default function SimpleForm(props) {
 
 
     async function submitAdvancedForm(data) {
-        let res = await fetchHelper('/api/visitor/submit_advanced', "POST", data)
+        let res = await fetchHelper('/visitor/submit_advanced', "POST", data)
         let json = await res.json()
 
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })

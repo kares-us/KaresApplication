@@ -27,7 +27,7 @@ export default function ResourceView(props) {
                 <Input name={'Website 1'} value={website1} handleChange={setWebsite1} />
                 <Input name={'Website 2'} value={website2} handleChange={setWebsite2} />
                 <Input name={'Additional Information'} value={additionalInformation} handleChange={setAdditionalInformation} />
-                <p className='text-xl mb-3'>Tag</p>
+                <p className='text-xl mb-3'>Tag <span className='text-red-500'>*</span></p>
                 <TagDropdown value={tag} setTag={setTag} />
                 <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                     <button

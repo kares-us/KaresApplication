@@ -73,10 +73,10 @@ export async function getServerSideProps(context) {
     let counties
     let alrt = null
 
-    let resResources = await fetchHelper(`/api/resource/county/${context.params.id}`, "GET")
+    let resResources = await fetchHelper(`/resource/county/${context.params.id}`, "GET")
     let jsonResources = await resResources.json()
 
-    let resCounties = await fetchHelper(`/api/county`, "GET")
+    let resCounties = await fetchHelper(`/county`, "GET")
     let jsonCounties = await resCounties.json()
 
     if (!resResources.ok) alrt = { type: "Error", message: jsonResources.message }

@@ -15,7 +15,7 @@ export default function SimpleForm(props) {
     const [phone, setPhone] = useState('')
 
     async function submitSimpleForm(data) {
-        let res = await fetchHelper('/api/visitor/submit_simple', "POST", data)
+        let res = await fetchHelper('/visitor/submit_simple', "POST", data)
         let json = await res.json()
 
         if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
