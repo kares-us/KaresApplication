@@ -37,7 +37,7 @@ export default function VisitorTable(props) {
     let simpleVisitors = []
 
     data.forEach(vis => {
-      if (vis.additionInfo === null && !vis.archived) {
+      if (vis.additionalInfo === null && !vis.archived) {
         const visDate = new Date(vis.createdAt)
         if (visDate.getMonth() === filterMonth) simpleVisitors.push(vis)
       }
@@ -67,7 +67,7 @@ export default function VisitorTable(props) {
     let advancedVisitors = []
 
     data.forEach(vis => {
-      if (vis.additionInfo !== null && !vis.archived) {
+      if (vis.additionalInfo !== null && !vis.archived) {
         const visDate = new Date(vis.createdAt)
         if (visDate.getMonth() === filterMonth) advancedVisitors.push(vis)
       }

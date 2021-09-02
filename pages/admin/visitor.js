@@ -80,6 +80,8 @@ export async function getServerSideProps(context) {
     if (!resCounties.ok) alrt = { type: "Error", message: jsonCounties.message }
     else counties = jsonCounties.data
 
+    console.log(counties)
+
     return {
       props: {
         counties: session.user.counties
