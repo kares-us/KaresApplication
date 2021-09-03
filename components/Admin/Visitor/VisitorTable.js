@@ -37,7 +37,7 @@ export default function VisitorTable(props) {
     let simpleVisitors = []
 
     data.forEach(vis => {
-      if (vis.additionalInfo === null && !vis.archived) {
+      if (vis.additionalInfo === null && vis.registerInfo === null && !vis.archived) {
         const visDate = new Date(vis.createdAt)
         if (visDate.getMonth() === filterMonth) simpleVisitors.push(vis)
       }
@@ -67,7 +67,37 @@ export default function VisitorTable(props) {
     let advancedVisitors = []
 
     data.forEach(vis => {
-      if (vis.additionalInfo !== null && !vis.archived) {
+      if (vis.additionalInfo !== null && vis.registerInfo === null && !vis.archived) {
+        const visDate = new Date(vis.createdAt)
+        if (visDate.getMonth() === filterMonth) advancedVisitors.push(vis)
+      }
+    })
+
+    if (advancedVisitors.length === 0) return <p className='ml-2 text-lg'>No visitors requested assistance.</p>
+
+    return (
+      <div className='flex flex-col bg-gray-300 rounded-md'>
+        {advancedVisitors.map((vis, index) => (
+          <div key={vis._id} className={`w-full flex justify-between items-center p-3 ${index % 2 === 0 ? 'bg-gray-300' : 'bg-gray-200'}`}>
+            <p className='w-full'>{vis.name}</p>
+            <p className='w-full text-right hidden sm:block'>{vis.phone}</p>
+            <div className='w-full flex justify-end'>
+              {vis.requestFulfilled ? <Checkmark color='text-green-600' /> : <X color='text-red-600' />}
+            </div>
+            <div className='w-full flex justify-end'>
+              <button className='p-1 px-4 rounded-md bg-gray-600 hover:bg-gray-800 transition-all' onClick={() => setVisitorForm({ open: !visitorForm.open, data: vis })}><Edit color='text-gray-200' /></button>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  function renderRegisterTable(data) {
+    let advancedVisitors = []
+
+    data.forEach(vis => {
+      if (vis.additionalInfo === null && vis.registerInfo !== null && !vis.archived) {
         const visDate = new Date(vis.createdAt)
         if (visDate.getMonth() === filterMonth) advancedVisitors.push(vis)
       }
@@ -137,18 +167,28 @@ export default function VisitorTable(props) {
       </div>
 
       <hr className='border bg-gray-300 border-gray-300 my-3' />
+      <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
+        <p className='w-full'>Name</p>
+        <p className='w-full text-right hidden sm:block'>Assistance</p>
+        <p className='w-full text-right'>Manage</p>
+      </div>
 
       <div className='p-2'>
         <p className='text-gray-600 text-xl mb-2 font-semibold'> Explore</p>
         {renderSimpleTable(visitors)}
       </div>
-      <div className='p-2'>
-        <p className='text-gray-600 text-xl mb-2 font-semibold'> Archived</p>
-        {renderArchivedTable(visitors)}
-      </div>
+
       <div className='p-2'>
         <p className='text-gray-600 text-xl mb-2 font-semibold'> Requested Assistance</p>
         {renderAdvancedTable(visitors)}
+      </div>
+      <div className='p-2'>
+        <p className='text-gray-600 text-xl mb-2 font-semibold'> Registered Assistance</p>
+        {renderRegisterTable(visitors)}
+      </div>
+      <div className='p-2'>
+        <p className='text-gray-600 text-xl mb-2 font-semibold'> Archived</p>
+        {renderArchivedTable(visitors)}
       </div>
 
       {visitorForm.open ? <VisitorView data={visitorForm.data} markVisFulfilled={markVisitorFulfilled} markVisArchived={markVisitorArchived} deleteVisitor={deleteVisitor} handleForm={setVisitorForm} /> : null}

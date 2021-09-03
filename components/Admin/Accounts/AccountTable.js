@@ -46,7 +46,7 @@ export default function AccountTable(props) {
 
     if (!accounts) return <Loading />
     else return (
-        <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-200 flex flex-col'>
+        <div className='w-11/12 max-w-5xl m-auto mt-3 p-4 bg-gray-200 flex flex-col'>
             <div className='w-full flex justify-between items-center font-semibold px-4 py-1 mb-2'>
                 <p className='w-full'>Email</p>
                 <p className='w-full text-right hidden sm:block'>Name</p>

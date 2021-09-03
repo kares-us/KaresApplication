@@ -2,6 +2,7 @@ import { useState } from "react"
 import fetchHelper from "../util/fetchHelper"
 
 import SimpleForm from "../components/Homepage/Modals/SimpleForm"
+import RegisterForm from '../components/Homepage/Modals/RegisterForm'
 import AdvancedForm from '../components/Homepage/Modals/AdvancedForm'
 import Alert from "../components/Util/Alert"
 import Footer from "../components/Homepage/Design/Footer"
@@ -11,37 +12,21 @@ export default function Home(props) {
     const { counties, alrt } = props
     const [pageAlert, setPageAlert] = useState(alrt)
     const [simpleForm, setSimpleForm] = useState(false)
+    const [registerForm, setRegisterForm] = useState(false)
     const [advancedForm, setAdvancedForm] = useState(false)
 
 
     return (
-        <div className=''>
+        <div className='bg-gray-300 min-h-screen flex justify-center items-center flex-wrap' style={{ backgroundImage: "url(/img/hometop.jpg)", }}>
             <Header />
-            {simpleForm ? <SimpleForm handleForm={setSimpleForm} counties={counties} setPageAlert={setPageAlert} /> : null}
-            {advancedForm ? <AdvancedForm handleForm={setAdvancedForm} counties={counties} setPageAlert={setPageAlert} /> : null}
-
-            {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
-            <div className='h-screen flex flex-col'>
-                <div className='h-1/2'>
-                    <div style={{ backgroundImage: "url(/img/hometop.jpg)" }} className='h-full w-full bg-cover bg-center flex justify-center items-center'>
-                        <div className='bg-white bg-opacity-75 w-10/12 max-w-sm h-4/5 rounded-full flex flex-col justify-center items-center hover:bg-blue-100 cursor-pointer transition-all' onClick={() => setSimpleForm(!simpleForm)}>
-                            <p className='text-3xl'>Explore</p>
-                            <img src='/img/Kares_Logo.png' className='w-32 h-auto my-3' />
-                            <p className='text-3xl'>In your community</p>
-                        </div>
-                    </div>
-                </div>
-                <div className='h-1/2'>
-                    <div style={{ backgroundImage: "url(/img/homebottom.jpg)" }} className='h-full w-full bg-cover bg-center flex justify-center items-center'>
-                        <div className='bg-white bg-opacity-75 w-10/12 max-w-sm h-4/5 rounded-full flex flex-col justify-center items-center hover:bg-blue-100 cursor-pointer transition-all' onClick={() => setAdvancedForm(!advancedForm)}>
-                            <p className='text-3xl'>Request</p>
-                            <img src='/img/Kares_Logo.png' className='w-32 h-auto my-3' />
-                            <p className='text-3xl'>Assistance</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <img src='/img/ExploreKares.png' onClick={() => setSimpleForm(!simpleForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
+            <img src='/img/RegisterWithKARES.png' onClick={() => setRegisterForm(!registerForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
+            <img src='/img/RequestAssistanceKARES.png' onClick={() => setAdvancedForm(!advancedForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
             <Footer />
+            {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
+            {simpleForm ? <SimpleForm handleForm={setSimpleForm} counties={counties} setPageAlert={setPageAlert} /> : null}
+            {registerForm ? <RegisterForm handleForm={setRegisterForm} counties={counties} setPageAlert={setPageAlert} /> : null}
+            {advancedForm ? <AdvancedForm handleForm={setAdvancedForm} counties={counties} setPageAlert={setPageAlert} /> : null}
         </div>
     )
 }

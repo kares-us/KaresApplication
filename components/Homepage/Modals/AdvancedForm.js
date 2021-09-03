@@ -5,6 +5,7 @@ import fetchHelper from '../../../util/fetchHelper'
 import CountyDropdown from '../../Util/CountyDropdown'
 import Input from '../../Util/Input'
 import QuestionDropDown from '../../Util/QuestionDropdown'
+import Disclaimer from './Disclaimer'
 
 
 export default function SimpleForm(props) {
@@ -29,6 +30,7 @@ export default function SimpleForm(props) {
     const [internet, setInternet] = useState('')
     const [authToWorkInUS, setAuthToWorkInUS] = useState('')
     const [tanfOrKtap, setTanfOrKtap] = useState('')
+    const [disclaimer, setDisclaimer] = useState(false)
 
 
 
@@ -68,23 +70,23 @@ export default function SimpleForm(props) {
                 <QuestionDropDown question={'Are you authorized to work in the US?'} answers={['Yes', 'No']} value={authToWorkInUS} setValue={setAuthToWorkInUS} />
                 <QuestionDropDown question={'Are you receiving any of the following: TANF, KTAP?'} answers={['Yes', 'No']} value={tanfOrKtap} setValue={setTanfOrKtap} />
 
+                <p className='mt-3 text-center font-bold text-lg'>By submitting this form you have acknowledge our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
 
-                <div className='flex justify-evenly items-center mt-5'>
-                    <div className='flex justify-evenly items-center mt-5 flex-wrap'>
-                        <button
-                            onClick={() => submitAdvancedForm({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { address, state, city, zipCode, transportation, employed, highestGrade, student, housingNeeds, englishPrimLang, criminalHis, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
-                            className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
-                        >
-                            Submit
-                        </button>
-                        <button
-                            onClick={() => handleForm(null)}
-                            className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'
-                        >
-                            Close
-                        </button>
-                    </div>
+                <div className='flex justify-evenly items-center mt-5 flex-wrap'>
+                    <button
+                        onClick={() => submitAdvancedForm({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { address, state, city, zipCode, transportation, employed, highestGrade, student, housingNeeds, englishPrimLang, criminalHis, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
+                        className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
+                    >
+                        Submit
+                    </button>
+                    <button
+                        onClick={() => handleForm(null)}
+                        className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'
+                    >
+                        Close
+                    </button>
                 </div>
+                {disclaimer ? <Disclaimer handleForm={setDisclaimer} /> : null}
             </div>
         </div>
     )

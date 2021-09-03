@@ -1,11 +1,9 @@
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import AddCounty from './AddCounty'
 import CountyView from './CountyView'
 
 import Edit from '../../Icons/Edit'
-import { SyncLoader } from 'react-spinners'
 import Loading from '../Error/Loading'
 
 export default function CountyTable(props) {
@@ -38,7 +36,7 @@ export default function CountyTable(props) {
 
     if (!counties) return <Loading />
     else return (
-        <div className='w-11/12 max-w-5xl m-auto mt-12 p-4 bg-gray-100 flex flex-col'>
+        <div className='w-11/12 max-w-5xl m-auto mt-3 p-4 bg-gray-100 flex flex-col'>
             <div className='flex justify-between items-center'>
                 <p className='text-2xl'>Kares Counties</p>
                 <button onClick={() => setCountyAddForm(!countyAddForm)} className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'>Create</button>

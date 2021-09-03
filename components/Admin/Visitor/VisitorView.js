@@ -20,6 +20,23 @@ export default function VisitorView(props) {
         )
     }
 
+    function renderRegisterInfo(data) {
+        return (
+            <>
+                <p className='font-medium text-xl mb-1'>Register Info</p>
+                <hr className='border-2 mt-3 mb-5 border-gray-300' />
+                <div className='ml-5'>
+                    {Object.keys(data).map(key => (
+                        <div key={key}>
+                            <KeyText title={key.charAt(0).toUpperCase() + key.slice(1)} text={data[key]} />
+                        </div>
+                    ))
+                    }
+                </div>
+            </>
+        )
+    }
+
     return (
         <div className='fixed top-0 left-0 transform w-full h-full flex justify-center items-center '>
             <div className='absolute top-0 left-0 z-0 transform w-full h-full bg-black opacity-50' onClick={() => handleForm({ open: false, data: null })}></div>
@@ -29,8 +46,8 @@ export default function VisitorView(props) {
                     <hr className='border-2 my-5 border-gray-300' />
                     <KeyText title={'Full Name'} text={data.name} />
                     <KeyText title={'Phone Number'} text={data.phone} />
-                    <KeyText title={'Email Address'} text={data.email} />
                     {data.additionalInfo ? renderAdditionalInfo(data.additionalInfo) : null}
+                    {data.registerInfo ? renderRegisterInfo(data.registerInfo) : null}
                 </div>
 
 
