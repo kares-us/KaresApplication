@@ -44,7 +44,7 @@ export default function SimpleForm(props) {
             <div className='w-11/12 max-w-2xl bg-white z-10 p-6 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
                 <p className='text-xl'>Register for Assitance</p>
                 <hr className='border-2 my-5' />
-                <p className='text-xl font-bold mb-5'>Note: This form is for re-entry programs, only. Form all other requests please use the "Request Assistance" form.</p>
+                <p className='text-xl font-bold mb-5'>Note: This form is for re-entry programs, only. For all other requests please use the "Request Assistance" form.</p>
                 <p className='text-xl my-2'>County <span className='text-red-500'>*</span></p>
                 <CountyDropdown selected={county ? county.name : null} counties={counties} setCounty={setCounty} />
                 <Input name={'Name'} value={name} handleChange={setName} required />

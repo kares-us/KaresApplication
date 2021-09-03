@@ -36,7 +36,7 @@ export default function SimpleForm(props) {
                 <Input name={'Email'} value={email} handleChange={setEmail} />
                 <Input name={'Contact Number'} value={phone} handleChange={setPhone} required />
 
-                <p className='mt-3 text-center font-bold text-lg'>By submitting this form you have acknowledge our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
+                <p className='mt-3 text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
 
                 <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                     <button
