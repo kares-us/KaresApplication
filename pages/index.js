@@ -19,7 +19,7 @@ export default function Home(props) {
     return (
         <div className='bg-gray-300 min-h-screen flex justify-center items-center flex-wrap' style={{ backgroundImage: "url(/img/hometop.jpg)", }}>
             <Header />
-            <img src='/img/ExploreKares.png' onClick={() => setSimpleForm(!simpleForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
+            <img src='/img/ExploreKARES.png' onClick={() => setSimpleForm(!simpleForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
             <img src='/img/RegisterWithKARES.png' onClick={() => setRegisterForm(!registerForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
             <img src='/img/RequestAssistanceKARES.png' onClick={() => setAdvancedForm(!advancedForm)} className='transform cursor-pointer w-96 m-2 my-20 hover:scale-125 transition-all' />
             <Footer />
