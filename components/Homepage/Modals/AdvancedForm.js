@@ -70,7 +70,7 @@ export default function SimpleForm(props) {
                 <QuestionDropDown question={'Are you authorized to work in the US?'} answers={['Yes', 'No']} value={authToWorkInUS} setValue={setAuthToWorkInUS} />
                 <QuestionDropDown question={'Are you receiving any of the following: TANF, KTAP?'} answers={['Yes', 'No']} value={tanfOrKtap} setValue={setTanfOrKtap} />
 
-                <p className='mt-3 text-center font-bold text-lg'>By submitting this form you have acknowledge our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
+                <p className='mt-3 text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
 
                 <div className='flex justify-evenly items-center mt-5 flex-wrap'>
                     <button
