@@ -79,7 +79,7 @@ export default function SimpleForm(props) {
             onChange={() => setDisclaimerAccepted(!disclaimerAccepted)}
             checked={disclaimerAccepted}
           />
-          <p className='text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
+          <p className='text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span> After clicking "submit," you may be contacted directly by a Case Manager. You will also be taken to the "Explore Kares" page to view local resources.</p>
         </div>
 
         <div className='flex justify-evenly items-center mt-5 flex-wrap'>
