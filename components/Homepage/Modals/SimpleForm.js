@@ -37,19 +37,20 @@ export default function SimpleForm(props) {
         <Input name={'Email'} value={email} handleChange={setEmail} />
         <Input name={'Contact Number'} value={phone} handleChange={setPhone} required />
 
-        <div>
+        <div className='flex mt-3'>
           <input
+            className='mt-2'
             type="checkbox"
-            onClick={() => setDisclaimerAccepted(!disclaimerAccepted)}
-            checked={!disclaimerAccepted}
+            onChange={() => setDisclaimerAccepted(!disclaimerAccepted)}
+            checked={disclaimerAccepted}
           />
-          <p className='mt-3 text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
+          <p className='text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
         </div>
 
         <div className='flex justify-evenly items-center mt-5 flex-wrap'>
           <button
             onClick={() => submitSimpleForm({ county, name, email, phone })}
-            className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
+            className={`p-2 m-1 px-4 w-36 rounded-md border-2 transition-all ${disclaimerAccepted ? 'border-green-500 bg-green-200 hover:bg-green-300' : 'bg-gray-200 border-gray-300 hover:bg-gray-300'}`}
             disabled={!disclaimerAccepted}
           >
             Submit
