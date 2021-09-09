@@ -29,7 +29,6 @@ export default function TagDropDown(props) {
                     <TagMenuButton name='Housing' value='housing' changeTag={setTag} setMenu={setMenu} />
                     <TagMenuButton name='Child Care' value='child-care' changeTag={setTag} setMenu={setMenu} />
                     <TagMenuButton name='Health Care' value='health-care' changeTag={setTag} setMenu={setMenu} />
-                    <TagMenuButton name='Housing' value='housing' changeTag={setTag} setMenu={setMenu} />
                     <TagMenuButton name='Local Gov. Offices' value='local-gov-offices' changeTag={setTag} setMenu={setMenu} />
                     <TagMenuButton name='Community Resources' value='community-resources' changeTag={setTag} setMenu={setMenu} />
                     <TagMenuButton name='Schools and Family Resource Centers' value='schools-family-resources ' changeTag={setTag} setMenu={setMenu} />

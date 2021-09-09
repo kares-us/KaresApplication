@@ -6,6 +6,8 @@ import CountyDropdown from '../../Util/CountyDropdown'
 import Input from '../../Util/Input'
 import QuestionDropDown from '../../Util/QuestionDropdown'
 import Disclaimer from './Disclaimer'
+import Checkbox from '../../Util/Checkbox'
+import Button from '../../Util/Button'
 
 
 export default function SimpleForm(props) {
@@ -40,7 +42,7 @@ export default function SimpleForm(props) {
   }
 
   return (
-    <div className='fixed top-0 left-0 transform w-full h-full flex justify-center items-center'>
+    <div className='z-50 fixed top-0 left-0 transform w-full h-full flex justify-center items-center'>
       <div className='absolute top-0 left-0 z-0 transform w-full h-full bg-black opacity-50' onClick={() => handleForm(null)}></div>
       <div className='w-11/12 max-w-2xl bg-white z-10 p-6 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
         <p className='text-xl'>Register for Assistance</p>
@@ -63,29 +65,22 @@ export default function SimpleForm(props) {
         <QuestionDropDown question={'Are you currently incarcerated or in a treatment or correctional facility?'} answers={['Yes', 'No']} value={incarceratedOrCorrectionalFacility} setValue={setIncarceratedOrCorrectionalFacility} required />
 
         <div className='flex mt-3'>
-          <input
-            className='mt-2'
-            type="checkbox"
-            onChange={() => setDisclaimerAccepted(!disclaimerAccepted)}
-            checked={disclaimerAccepted}
-          />
-          <p className='text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span> After clicking "submit," you may be contacted directly by a Case Manager. You will also be taken to the "Explore Kares" page to view local resources.</p>
+          <Checkbox checked={disclaimerAccepted} onChange={setDisclaimerAccepted} />
+          <p className='text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
         </div>
 
         <div className='flex justify-evenly items-center mt-5 flex-wrap'>
-          <button
-            onClick={() => submitRegisterForm({ county, name, phone, registerInfo: { referral, employmentAssitance, recoveryAssistance, housingAssistance, foodAssistance, careerOrJobTraining, assistanceWithCollege, incarceratedOrCorrectionalFacility }, requestFulfilled: false })}
-            className={`p-2 m-1 px-4 w-36 rounded-md border-2 transition-all ${disclaimerAccepted ? 'border-green-500 bg-green-200 hover:bg-green-300' : 'bg-gray-200 border-gray-300 hover:bg-gray-300'}`}
-            disabled={!disclaimerAccepted}
-          >
-            Submit
-          </button>
-          <button
+          <Button
             onClick={() => handleForm(null)}
-            className='p-2 m-1 px-4 w-36 rounded-md border-2 border-blue-500 bg-blue-300 hover:bg-blue-400 transition-all'
-          >
-            Close
-          </button>
+            color='blue'
+            label='Close'
+          />
+          <Button
+            onClick={() => submitRegisterForm({ county, name, phone, registerInfo: { referral, employmentAssitance, recoveryAssistance, housingAssistance, foodAssistance, careerOrJobTraining, assistanceWithCollege, incarceratedOrCorrectionalFacility }, requestFulfilled: false })}
+            color='green'
+            label='Submit'
+            disabled={!disclaimerAccepted}
+          />
         </div>
         {disclaimer ? <Disclaimer handleForm={setDisclaimer} /> : null}
       </div>

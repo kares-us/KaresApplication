@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
-import { dbURI, siteURL } from '../../../util/globals'
+import { dbURI } from '../../../util/globals'
 
 
 
