@@ -9,10 +9,8 @@ import AdminIndexCard from '../../components/Util/AdminIndexCard'
 import Alert from '../../components/Util/Alert'
 
 export default function Admin(props) {
-  const { counties, alrt } = props
   const [session, loading] = useSession()
   const [pageAlert, setPageAlert] = useState(props.alrt)
-  const isAdmin = session.user.roles.includes('Admin')
 
   if (loading) return <Loading />
   else if (!session) return <NotSignedIn />
@@ -24,25 +22,12 @@ export default function Admin(props) {
         <p className='text-white text-2xl p-5 font-semibold text-center'>Welcome back, {session.user.name}.</p>
         <div className='flex flex-wrap m-2 max-w-4xl mx-auto justify-center mb-16'>
           <AdminIndexCard title='Visitors' description='View visitors information across counties you manage.' route='/admin/visitors' />
-          {isAdmin ? <AdminIndexCard title='Resources' description='Access county resources and information.' route='/admin/resources' /> : null}
-          {isAdmin ? <AdminIndexCard title='Counties' description='Create and edit county information.' route='/admin/counties' /> : null}
-          {isAdmin ? <AdminIndexCard title='Admins' description='Access admins registered with Kares.' route='/admin/accounts' /> : null}
+          {session.user.roles.includes('Admin') ? <AdminIndexCard title='Resources' description='Access county resources and information.' route='/admin/resources' /> : null}
+          {session.user.roles.includes('Admin') ? <AdminIndexCard title='Counties' description='Create and edit county information.' route='/admin/counties' /> : null}
+          {session.user.roles.includes('Admin') ? <AdminIndexCard title='Admins' description='Access admins registered with Kares.' route='/admin/accounts' /> : null}
         </div>
         <Footer />
       </div>
     )
-  }
-}
-
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context)
-
-  if (!session) return { redirect: { destination: '/api/auth/signin' } }
-
-  return {
-    props: {
-      counties: session.user.counties
-    }
   }
 }
