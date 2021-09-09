@@ -46,7 +46,6 @@ export default function Accounts(props) {
         :
         null
       }
-      <Footer />
     </div>
   )
 
