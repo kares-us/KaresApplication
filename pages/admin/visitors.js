@@ -7,6 +7,7 @@ import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
 import VisitorTable from '../../components/Admin/Visitor/VisitorTable'
 import Alert from '../../components/Util/Alert'
+import Footer from '../../components/Homepage/Design/Footer'
 
 export default function Visitor(props) {
   const { counties } = props

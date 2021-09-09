@@ -8,6 +8,7 @@ import Loading from '../../components/Admin/Error/Loading'
 import NotSignedIn from '../../components/Admin/Error/NotSignedIn'
 import ResourceTable from '../../components/Admin/Resource/ResourceTable'
 import Alert from '../../components/Util/Alert'
+import Footer from '../../components/Homepage/Design/Footer'
 
 export default function Resources(props) {
     const { counties } = props

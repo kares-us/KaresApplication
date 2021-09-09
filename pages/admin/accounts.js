@@ -8,6 +8,7 @@ import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
 import AccountTable from '../../components/Admin/Accounts/AccountTable'
 import Alert from '../../components/Util/Alert'
+import Footer from '../../components/Homepage/Design/Footer'
 
 export default function Accounts(props) {
   const { counties } = props

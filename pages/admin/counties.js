@@ -7,6 +7,7 @@ import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
 import CountyTable from '../../components/Admin/County/CountyTable'
 import Alert from '../../components/Util/Alert'
+import Footer from '../../components/Homepage/Design/Footer'
 
 export default function counties(props) {
   const [session, loading] = useSession()
