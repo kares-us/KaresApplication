@@ -51,10 +51,10 @@ export default function Resources(props) {
   }
   function renderResources() {
     return (
-      <div className='w-full min-h-screen bg-gray-800 pt-10'>
+      <div className='w-full min-h-screen bg-gray-800'>
         {resourceForm ? <ResourceView handleForm={handleResourceView} data={selectedResource} /> : null}
         {advancedForm ? <AdvancedForm handleForm={setAdvancedForm} counties={counties} setPageAlert={setPageAlert} /> : null}
-        <Button color='blue' label='Back to Home' onClick={() => router.push('/')} />
+        <Button color='blue' label='Back to Home' onClick={() => router.push('/')} extraClasses='my-3 ml-3'/>
         <div className='w-11/12 max-w-xl mx-auto'>
           <button className='w-full p-4 text-lg rounded-md border-2 border-gray-200 bg-gray-200 hover:bg-gray-300 mb-10 transition-all' onClick={() => setAdvancedForm(!advancedForm)}>Request Assistance</button>
           <Searchbar name={'Resource Name'} value={searchFilter} handleChange={setSearchFilter} />
