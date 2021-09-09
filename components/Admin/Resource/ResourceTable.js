@@ -43,7 +43,7 @@ export default function ResourceTable(props) {
 
     if (!resources) return <Loading />
     else return (
-        <div className='w-11/12 max-w-5xl m-auto mt-3 p-4 bg-gray-100 flex flex-col'>
+        <div className='w-11/12 max-w-5xl m-auto mt-3 p-4 bg-gray-100 flex flex-col mb-16'>
             <div className='flex justify-between items-center px-3 mb-4'>
                 <p className='text-2xl'>{county.name} County</p>
 

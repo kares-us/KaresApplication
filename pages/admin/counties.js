@@ -35,6 +35,7 @@ export default function counties(props) {
       <Navbar session={session} />
       {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
       {counties ? <CountyTable counties={counties} addCounty={addCounty} updateCounty={updateCounty} /> : null}
+      <Footer />
     </div>
   )
 }

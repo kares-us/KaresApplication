@@ -155,7 +155,7 @@ export default function VisitorTable(props) {
 
   if (!visitors) return <Loading />
   else return (
-    <div className='w-full max-w-5xl bg-gray-100 rounded-sm mx-auto mt-3 p-5'>
+    <div className='w-full max-w-5xl bg-gray-100 rounded-sm mx-auto mt-3 p-5 mb-16'>
       <p className='text-2xl mb-5'>{county.name} County</p>
       <div className='flex justify-between'>
         <div className='w-32'>

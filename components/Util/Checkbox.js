@@ -5,7 +5,7 @@ function Checkbox(props) {
 
   return (
     <div
-      className={`flex-shrink-0 w-6 h-6 border border-black rounded-md ${checked ? 'bg-blue-400' : 'bg-transparent'}`}
+      className={`flex-shrink-0 w-6 h-6 border border-black rounded-md cursor-pointer ${checked ? 'bg-blue-400' : 'bg-transparent'}`}
       onClick={() => onChange(!checked)}
     />
   );

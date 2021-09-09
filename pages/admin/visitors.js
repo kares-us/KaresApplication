@@ -63,6 +63,7 @@ export default function Visitor(props) {
         :
         <p className='mt-5 text-center text-white'>There are currently no counties tied to your account.</p>
       }
+      <Footer />
     </div>
   )
 }

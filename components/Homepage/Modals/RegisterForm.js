@@ -45,9 +45,11 @@ export default function SimpleForm(props) {
     <div className='z-50 fixed top-0 left-0 transform w-full h-full flex justify-center items-center'>
       <div className='absolute top-0 left-0 z-0 transform w-full h-full bg-black opacity-50' onClick={() => handleForm(null)}></div>
       <div className='w-11/12 max-w-2xl bg-white z-10 p-6 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
-        <p className='text-xl'>Register for Assistance</p>
+        <p className='text-xl font-semibold'>Register for Assistance</p>
         <hr className='border-2 my-5' />
-        <p className='text-xl font-bold mb-5'>Note: This form is for re-entry programs, only. For all other requests please use the "Request Assistance" form.</p>
+        <p className='text-lg font-semibold mb-5'><span className='text-red-600'>Note:</span> This form is for re-entry programs, only. For all other requests please use the "Request Assistance" form.</p>
+        <p className='text-lg font-semibold mb-5'><span className='text-red-600'>Note:</span> All fields on this form are required.</p>
+        <hr className='border-2 my-5' />
         <p className='text-xl my-2'>County <span className='text-red-500'>*</span></p>
         <CountyDropdown selected={county ? county.name : null} counties={counties} setCounty={setCounty} />
         <Input name={'Name'} value={name} handleChange={setName} required />
@@ -64,9 +66,9 @@ export default function SimpleForm(props) {
         <QuestionDropDown question={'Do you need assistance with college or technical school?'} answers={['Yes', 'No']} value={assistanceWithCollege} setValue={setAssistanceWithCollege} required />
         <QuestionDropDown question={'Are you currently incarcerated or in a treatment or correctional facility?'} answers={['Yes', 'No']} value={incarceratedOrCorrectionalFacility} setValue={setIncarceratedOrCorrectionalFacility} required />
 
-        <div className='flex mt-3'>
+        <div className='flex my-5 justify-center'>
           <Checkbox checked={disclaimerAccepted} onChange={setDisclaimerAccepted} />
-          <p className='text-center font-bold text-lg'>By submitting this form you have acknowledged our <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
+          <p className='text-center font-bold text-lg ml-3'> I acknowledge and agree to the <span className='text-blue-600 cursor-pointer hover:underline' onClick={() => setDisclaimer(!disclaimer)}>confidentiality agreement.</span></p>
         </div>
 
         <div className='flex justify-evenly items-center mt-5 flex-wrap'>
