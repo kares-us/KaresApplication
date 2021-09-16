@@ -15,7 +15,7 @@ export default function TagDropDown(props) {
             </button>
 
 
-            <div hidden={menuHidden} className="absolute z-10 right-28 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+            <div hidden={menuHidden} className="relative z-10 right-28 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
                 <div className="py-1" role="none">
                     <TagMenuButton name='Mental, Drug, Alcohol Treatment' value='mental-drug-alch' changeTag={setTag} setMenu={setMenu} />
                     <TagMenuButton name='Substance Abuse' value='substance-abuse' changeTag={setTag} setMenu={setMenu} />
