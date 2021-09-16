@@ -6,7 +6,7 @@ export default function TagDropDown(props) {
     const [menuHidden, setMenu] = useState(true)
 
     return (
-        <div className="inline-block text-left w-full">
+        <div className="relative inline-block text-left w-full">
             <button type="button" className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm p-4 bg-gray-100 text-sm font-medium text-black hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true" onClick={() => setMenu(!menuHidden)}>
                 {value === '' ? 'None' : value}
                 <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
