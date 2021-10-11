@@ -28,7 +28,6 @@ export function createCSV(visitors, filterMonth) {
       'Phone': vis.phone,
       'County': vis.countyName,
       'Address': vis.additionalInfo ? vis.additionalInfo.address : '',
-      'Social': vis.additionalInfo ? vis.additionalInfo.social : '',
       'State': vis.additionalInfo ? vis.additionalInfo.state : '',
       'City': vis.additionalInfo ? vis.additionalInfo.city : '',
       'Zip Code': vis.additionalInfo ? vis.additionalInfo.zipCode : '',
@@ -36,17 +35,22 @@ export function createCSV(visitors, filterMonth) {
       'Employed': vis.additionalInfo ? vis.additionalInfo.employed : '',
       'Highest Grade': vis.additionalInfo ? vis.additionalInfo.highestGrade : '',
       'Student': vis.additionalInfo ? vis.additionalInfo.student : '',
-      'Veteran': vis.additionalInfo ? vis.additionalInfo.veteran : '',
-      'Spouse of Veteran': vis.additionalInfo ? vis.additionalInfo.spouseOfVeteran : '',
       'Require Care': vis.additionalInfo ? vis.additionalInfo.reqChildCare : '',
       'Housing Needs': vis.additionalInfo ? vis.additionalInfo.housingNeeds : '',
       'English Primary Language': vis.additionalInfo ? vis.additionalInfo.englishPrimLang : '',
       'Criminal History': vis.additionalInfo ? vis.additionalInfo.criminalHis : '',
-      'Disability to Disclose': vis.additionalInfo ? vis.additionalInfo.disabilityToDisclose : '',
       'Clothing Needs': vis.additionalInfo ? vis.additionalInfo.clothingNeeds : '',
       'Internet': vis.additionalInfo ? vis.additionalInfo.internet : '',
       'Authorized to work in US': vis.additionalInfo ? vis.additionalInfo.authToWorkInUS : '',
       'TANF or KTAP': vis.additionalInfo ? vis.additionalInfo.tanfOrKtap : '',
+      'Referral': vis.registerInfo ? vis.registerInfo.referral : '',
+      'Employment Assistance': vis.registerInfo ? vis.registerInfo.employmentAssitance : '',
+      'Recovery Assistance': vis.registerInfo ? vis.registerInfo.recoveryAssistance : '',
+      'Housing Assistance': vis.registerInfo ? vis.registerInfo.housingAssistance : '',
+      'Food Assistance': vis.registerInfo ? vis.registerInfo.foodAssistance : '',
+      'Career or Job Training': vis.registerInfo ? vis.registerInfo.careerOrJobTraining : '',
+      'Assistance with College': vis.registerInfo ? vis.registerInfo.assistanceWithCollege : '',
+      'Incarcerated or Correctional Facility': vis.registerInfo ? vis.registerInfo.incarceratedOrCorrectionalFacility : ''
     })
   })
 

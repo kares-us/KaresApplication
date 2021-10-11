@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { createCSV } from '../../util/helperFunctions'
+import { CSVDownload } from 'react-csv'
 
 import CountyDropdown from '../../Util/CountyDropdown';
 import VisitorView from './VisitorView';
@@ -87,7 +89,10 @@ export default function VisitorTable(props) {
   if (!visitors) return <Loading />
   else return (
     <div className='w-11/12 max-w-5xl bg-gray-100 rounded-sm mx-auto mt-3 p-5'>
-      <p className='text-2xl mb-5'>{county.name} County</p>
+      <div className='flex justify-between items-center'>
+        <p className='text-2xl mb-5'>{county.name} County</p>
+        <CSVDownload data={createCSV(visitors)} />
+      </div>
       <div className='flex justify-between'>
         <div className='w-32'>
           <MonthDropdown selected={filterMonth} setMonth={setFilterMonth} />
