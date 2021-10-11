@@ -51,7 +51,7 @@ export default function SimpleForm(props) {
             label='Close'
           />
           <Button
-            onClick={() => submitSimpleForm({ county, name, email, phone })}
+            onClick={() => submitSimpleForm({ county, name, email, phone, createdAt: Date.now() })}
             color='green'
             label='Submit'
             disabled={!disclaimerAccepted}

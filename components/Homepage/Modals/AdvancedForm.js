@@ -86,7 +86,7 @@ export default function AdvancedForm(props) {
             label='Close'
           />
           <Button
-            onClick={() => submitAdvancedForm({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { address, state, city, zipCode, transportation, employed, highestGrade, student, housingNeeds, englishPrimLang, criminalHis, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, requestFulfilled: false })}
+            onClick={() => submitAdvancedForm({ countyName: county ? county.name : null, county, name, email, phone, additionalInfo: { address, state, city, zipCode, transportation, employed, highestGrade, student, housingNeeds, englishPrimLang, criminalHis, clothingNeeds, internet, authToWorkInUS, tanfOrKtap }, createdAt: Date.now(), requestFulfilled: false })}
             color='green'
             label='Submit'
             disabled={!disclaimerAccepted}

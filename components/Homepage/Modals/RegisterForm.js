@@ -78,7 +78,7 @@ export default function SimpleForm(props) {
             label='Close'
           />
           <Button
-            onClick={() => submitRegisterForm({ county, name, phone, registerInfo: { referral, employmentAssitance, recoveryAssistance, housingAssistance, foodAssistance, careerOrJobTraining, assistanceWithCollege, incarceratedOrCorrectionalFacility }, requestFulfilled: false })}
+            onClick={() => submitRegisterForm({ county, name, phone, registerInfo: { referral, employmentAssitance, recoveryAssistance, housingAssistance, foodAssistance, careerOrJobTraining, assistanceWithCollege, incarceratedOrCorrectionalFacility }, createdAt: Date.now(), requestFulfilled: false })}
             color='green'
             label='Submit'
             disabled={!disclaimerAccepted}

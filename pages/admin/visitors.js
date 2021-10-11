@@ -7,7 +7,6 @@ import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
 import VisitorTable from '../../components/Admin/Visitor/VisitorTable'
 import Alert from '../../components/Util/Alert'
-import Footer from '../../components/Homepage/Design/Footer'
 
 export default function Visitor(props) {
   const { counties } = props
@@ -56,14 +55,7 @@ export default function Visitor(props) {
     <div className='w-full min-h-screen bg-gray-800'>
       <Navbar session={session} />
       {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
-      {counties.length > 0 ?
-        <VisitorTable
-          counties={counties}
-          functions={{ getVisitorsByCounty, markVisitorArchived, markVisitorFulfilled, deleteVisitor }}
-        />
-        :
-        <p className='mt-5 text-center text-white'>There are currently no counties tied to your account.</p>
-      }
+      {counties.length > 0 && <VisitorTable counties={counties} functions={{ getVisitorsByCounty, markVisitorArchived, markVisitorFulfilled, deleteVisitor }} />}
     </div>
   )
 }
@@ -75,17 +67,16 @@ export async function getServerSideProps(context) {
   if (!session.user.roles.includes("County Manager")) return { redirect: { destination: '/admin' } }
   else if (session.user.roles.includes("Admin")) {
     let counties = null
-    let resCounties = await fetchHelper('/county', "GET")
-    let jsonCounties = await resCounties.json()
+    let alrt = null
+    let res = await fetchHelper('/county', "GET")
+    let json = await res.json()
 
-    if (!resCounties.ok) alrt = { type: "Error", message: jsonCounties.message }
-    else counties = jsonCounties.data
-
-    console.log(counties)
+    if (!res.ok) alrt = { type: "Error", message: json.message }
+    else counties = json.data
 
     return {
       props: {
-        counties: session.user.counties
+        counties
       }
     }
   }
