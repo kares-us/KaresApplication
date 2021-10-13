@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { createCSV } from '../../util/helperFunctions'
-import { CSVDownload } from 'react-csv'
+import { createCSV } from '../../../util/helperFunctions';
+import { CSVLink } from 'react-csv'
 
 import CountyDropdown from '../../Util/CountyDropdown';
 import VisitorView from './VisitorView';
@@ -89,9 +89,9 @@ export default function VisitorTable(props) {
   if (!visitors) return <Loading />
   else return (
     <div className='w-11/12 max-w-5xl bg-gray-100 rounded-sm mx-auto mt-3 p-5'>
-      <div className='flex justify-between items-center'>
-        <p className='text-2xl mb-5'>{county.name} County</p>
-        <CSVDownload data={createCSV(visitors)} />
+      <div className='flex justify-between items-center mb-5'>
+        <p className='text-2xl'>{county.name} County</p>
+        <CSVLink filename={`kares-visitors-${filterMonth}.csv`} data={createCSV(visitors, filterMonth)} className='p-2 m-1 px-4 w-36 rounded-md border-2 transition-all text-center bg-gray-200 border-gray-300 hover:bg-gray-300'>Create CSV</CSVLink>
       </div>
       <div className='flex justify-between'>
         <div className='w-32'>

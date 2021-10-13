@@ -53,6 +53,5 @@ export function createCSV(visitors, filterMonth) {
       'Incarcerated or Correctional Facility': vis.registerInfo ? vis.registerInfo.incarceratedOrCorrectionalFacility : ''
     })
   })
-
   return visitorsToCSV
 }
