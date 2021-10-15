@@ -1,9 +1,10 @@
 export default function ResourceView(props) {
     const { data, handleForm } = props
+    console.log(data)
 
     return (
         <div className='fixed top-0 left-0 transform w-full h-full flex justify-center items-center'>
-            <div className='absolute top-0 left-0 z-10 transform w-full h-full bg-black opacity-50' onClick={() => handleForm(null)}></div>
+            <div className='absolute top-0 left-0 z-20 transform w-full h-full bg-black opacity-50' onClick={() => handleForm(null)}></div>
             <div className='w-11/12 max-w-2xl bg-white z-30 p-6 rounded-md overflow-y-scroll' style={{ maxHeight: '95%' }}>
                 <p className='text-xl'>{data.name}</p>
                 <hr className='border-2 my-5' />
@@ -25,7 +26,7 @@ export default function ResourceView(props) {
                 </p>
                 <p className='text-xl mb-2'>
                     <span className='font-medium'>Additional Info:</span>
-                    {data.meetingTime ? <a> {data.meetingTime}</a> : ' N/A'}
+                    {data.additionalInformation ? <a> {data.additionalInformation}</a> : ' N/A'}
                 </p>
 
                 <div className='flex justify-evenly items-center mt-5'>

@@ -14,7 +14,7 @@ export default function AddResource(props) {
   const [address, setAddress] = useState('')
   const [website1, setWebsite1] = useState('')
   const [website2, setWebsite2] = useState('')
-  const [meetingTime, setMeetingTime] = useState('')
+  const [additionalInformation, setAdditionalInformation] = useState('')
   const [tag, setTag] = useState('')
 
   return (
@@ -31,12 +31,12 @@ export default function AddResource(props) {
         <Input name={'Address'} value={address} handleChange={setAddress} />
         <Input name={'Website 1'} value={website1} handleChange={setWebsite1} />
         <Input name={'Website 2'} value={website2} handleChange={setWebsite2} />
-        <Input name={'Meeting Time'} value={meetingTime} handleChange={setMeetingTime} />
+        <Input name={'Meeting Time'} value={additionalInformation} handleChange={setAdditionalInformation} />
         <p className='text-xl mb-3'>Tag <span className='text-red-500'>*</span></p>
         <TagDropdown value={tag} setTag={setTag} />
         <div className='flex justify-evenly items-center mt-5'>
           <button
-            onClick={() => createCountyResource({ county: county._id, name, phone, address, website1, website2, meetingTime, tag })}
+            onClick={() => createCountyResource({ county: county._id, name, phone, address, website1, website2, additionalInformation, tag })}
             className='p-2 m-1 px-4 w-36 rounded-md border-2 border-green-500 bg-green-200 hover:bg-green-300 transition-all'
           >
             Create

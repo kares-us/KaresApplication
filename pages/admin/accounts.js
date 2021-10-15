@@ -2,19 +2,27 @@ import { useState, useEffect } from 'react'
 import { useSession, getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import fetchHelper from '../../util/fetchHelper'
-import { dbURI } from '../../util/globals'
 
 import Navbar from '../../components/Admin/Navbar'
 import Loading from '../../components/Admin/Error/Loading'
 import AccountTable from '../../components/Admin/Accounts/AccountTable'
 import Alert from '../../components/Util/Alert'
 import Footer from '../../components/Homepage/Design/Footer'
+import AccountCreation from '../../components/Admin/Accounts/AccountCreation'
 
 export default function Accounts(props) {
   const { counties } = props
   const [pageAlert, setPageAlert] = useState(props.alrt)
   const [session, loading] = useSession()
   const router = useRouter()
+
+  async function createAccount(data) {
+    const res = await fetchHelper(`/admin/create`, "POST", data)
+    const json = await res.json()
+
+    if (!res.ok) setPageAlert({ type: 'Error', message: json.message })
+    else router.reload()
+  }
 
   async function getAccounts() {
     const res = await fetchHelper(`/admin`, "GET")
@@ -37,6 +45,7 @@ export default function Accounts(props) {
     <div className='w-full min-h-screen bg-gray-800'>
       <Navbar session={session} />
       {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
+      <AccountCreation createAccount={createAccount} />
       {counties ?
         <AccountTable
           counties={counties}

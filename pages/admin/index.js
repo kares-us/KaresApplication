@@ -19,7 +19,7 @@ export default function Admin(props) {
       <div className='w-full min-h-screen bg-gray-800'>
         <Navbar session={session} />
         {pageAlert ? <Alert type={pageAlert.type} message={pageAlert.message} handleAlert={setPageAlert} /> : null}
-        <p className='text-white text-2xl p-5 font-semibold text-center'>Welcome back, {session.user.name}.</p>
+        <p className='text-white text-2xl p-5 font-semibold text-center'>Welcome back, {session.user.name}. <span className='text-gray-400 text-xl'>({session.user.email})</span></p>
         <div className='flex flex-wrap m-2 max-w-4xl mx-auto justify-center mb-16'>
           {session.user.roles.includes('County Manager') || session.user.roles.includes('Admin') ? <AdminIndexCard title='Visitors' description='View visitors information across counties you manage.' route='/admin/visitors' /> : null}
           {session.user.roles.includes('Admin') ? <AdminIndexCard title='Resources' description='Access county resources and information.' route='/admin/resources' /> : null}
