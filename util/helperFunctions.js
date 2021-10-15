@@ -21,6 +21,7 @@ export function createCSV(visitors, filterMonth) {
   visitors.forEach(vis => {
     const visDate = new Date(vis.createdAt)
     if (visDate.getMonth() === filterMonth) visitorsToCSV.push({
+      'Date Requested': visDate ? `${visDate.getMonth() + 1}-${visDate.getDate()}-${visDate.getFullYear()} ${visDate.getHours()}:${visDate.getMinutes()}` : '',
       'Request Fulfilled': vis.requestFulfilled ? 'Yes' : 'No',
       'Archived': vis.archived ? 'Yes' : 'No',
       'Name': vis.name,

@@ -13,7 +13,7 @@ export default function AccountCreation(props) {
       <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 w-11/12 max-w-2xl bg-white rounded-md' hidden={!open}>
         <div className='px-5 py-5 bg-gray-700 rounded-t-lg text-gray-200 text-3xl'>Create Account</div>
         <div className='p-4'>
-          <Input name='Account' value={email} handleChange={setEmail} />
+          <Input name='Account Email' value={email} handleChange={setEmail} />
           <Button label='Create' color='green' onClick={() => createAccount({ email })} extraClasses='w-full' />
           <Button label='Close' color='blue' onClick={() => setOpen(!open)} extraClasses='w-full' />
         </div>

@@ -8,6 +8,7 @@ import MonthDropdown from '../../Util/MonthDropdown';
 import Loading from '../Error/Loading';
 import VisitorSubTable from './VisitorSubTable';
 
+const csvDate = new Date()
 
 export default function VisitorTable(props) {
   const { counties, functions } = props
@@ -91,7 +92,7 @@ export default function VisitorTable(props) {
     <div className='w-11/12 max-w-5xl bg-gray-100 rounded-sm mx-auto mt-3 p-5'>
       <div className='flex justify-between items-center mb-5'>
         <p className='text-2xl'>{county.name} County</p>
-        <CSVLink filename={`kares-visitors-${filterMonth}.csv`} data={createCSV(visitors, filterMonth)} className='p-2 m-1 px-4 w-36 rounded-md border-2 transition-all text-center bg-gray-200 border-gray-300 hover:bg-gray-300'>Create CSV</CSVLink>
+        <CSVLink filename={`kares-visitors-${csvDate.getMonth() + 1}-${csvDate.getDate()}-${csvDate.getFullYear()}.csv`} data={createCSV(visitors, filterMonth)} className='p-2 m-1 px-4 w-36 rounded-md border-2 transition-all text-center bg-gray-200 border-gray-300 hover:bg-gray-300'>Create CSV</CSVLink>
       </div>
       <div className='flex justify-between'>
         <div className='w-32'>
