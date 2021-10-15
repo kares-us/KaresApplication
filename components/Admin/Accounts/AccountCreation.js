@@ -15,9 +15,10 @@ export default function AccountCreation(props) {
         <div className='p-4'>
           <Input name='Account' value={email} handleChange={setEmail} />
           <Button label='Create' color='green' onClick={() => createAccount({ email })} extraClasses='w-full' />
+          <Button label='Close' color='blue' onClick={() => setOpen(!open)} extraClasses='w-full' />
         </div>
       </div>
-      <div className='absolute w-full h-full top-0 left-0 bg-black bg-opacity-50 z-10' hidden={!open} />
+      <div className='absolute w-full h-full top-0 left-0 bg-black bg-opacity-50 z-10' hidden={!open} onClick={() => setOpen(!open)} />
     </div>
   )
 }
