@@ -177,7 +177,7 @@ export default function SimpleForm(props) {
                 registerInfo: {
                   address,
                   city,
-                  zip,
+                  zipCode,
                   referral,
                   employmentAssitance,
                   recoveryAssistance,
